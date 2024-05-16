@@ -1,25 +1,31 @@
 
 abstract class AbstractFloorDisplay {
-	protected ElevatorController ctrl ;
-	private IFloorDisplayImplementor imp;
+	protected ElevatorController elevatorController;
+	private IFloorDisplayImplementor floorDisplayImplementor;
 	
-	public AbstractFloorDisplay(ElevatorController ctrl, IFloorDisplayImplementor imp) {
-		this.ctrl = ctrl;
-		this.imp = imp;
+	public AbstractFloorDisplay(ElevatorController elevatorController,
+								IFloorDisplayImplementor floorDisplayModule) {
+		this.elevatorController = elevatorController;
+		this.floorDisplayImplementor = floorDisplayModule;
 	}
 	public void update() {
-		int curFlr = ctrl.getCurFlr() ;
-		int curDir = ctrl.getCurDir();
-		showPos(curFlr);
-		showDir(curDir);
+		int currentFloor = elevatorController.getCurFlr() ;
+		int currentDirection = elevatorController.getCurDir();
+		showPosition(currentFloor);
+		showDirection(currentDirection);
 	}
-	public void displayOn() { imp.activateDisplay(); }
-	public void displayOff() { imp.deactivateDisplay(); }
-	public void setDisplay(boolean set) {
-		if ( set  ) imp.activateDisplay();
-		else imp.deactivateDisplay();
+	public void displayOn() { floorDisplayImplementor.activateDisplay(); }
+	public void displayOff() { floorDisplayImplementor.deactivateDisplay(); }
+
+	public void activateDisplay() {
+		floorDisplayImplementor.activateDisplay();
 	}
-	protected IFloorDisplayImplementor getImp() { return imp; }
-	public abstract void showPos(int flr);
-	public abstract void showDir(int dir);
+
+	public void deactivateDisplay() {
+		floorDisplayImplementor.deactivateDisplay();
+	}
+
+	protected IFloorDisplayImplementor getFloorDisplayImplementor() { return floorDisplayImplementor; }
+	protected abstract void showPosition(int flr);
+	protected abstract void showDirection(int dir);
 }

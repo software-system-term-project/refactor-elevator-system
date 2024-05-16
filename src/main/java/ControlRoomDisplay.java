@@ -1,12 +1,12 @@
 
 public class ControlRoomDisplay {
-	private ElevatorController ctrl ;
+	private ElevatorController elevatorController;
 
 	public ControlRoomDisplay(ElevatorController elevatorController) {
-		this.ctrl = elevatorController;
+		this.elevatorController = elevatorController;
 	}
 	public void update() {
-		int curFlr = ctrl.getCurFlr() ;
-		System.out.println("Control Room: " + curFlr) ;
+		int currentFloor = elevatorController.getCurFlr() ;
+		System.out.println("Control Room: " + currentFloor) ;
 	}
 }

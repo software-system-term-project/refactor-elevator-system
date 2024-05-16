@@ -1,18 +1,19 @@
 
 public class AdvancedFloorDisplay extends AbstractFloorDisplay {
-	public AdvancedFloorDisplay(ElevatorController ctrl, IFloorDisplayImplementor imp) {
-		super(ctrl, imp);
+	public AdvancedFloorDisplay(ElevatorController elevatorController,
+								IFloorDisplayImplementor floorDisplayImplementor) {
+		super(elevatorController, floorDisplayImplementor);
 	}
 	@Override
-	public void showPos(int flr) {
-		IFloorDisplayImplementor imp = getImp();
-		imp.showCurrentPosition(flr);
-		imp.expressCurrentPositionByVoice(flr);
+	public void showPosition(int floor) {
+		IFloorDisplayImplementor floorDisplayImplementor = getFloorDisplayImplementor();
+		floorDisplayImplementor.showCurrentPosition(floor);
+		floorDisplayImplementor.expressCurrentPositionByVoice(floor);
 	}
 	@Override
-	public void showDir(int dir) {
-		IFloorDisplayImplementor imp = getImp();
-		imp.showDirection(dir);
-		imp.expressDirectionByVoice(dir);
+	public void showDirection(int direction) {
+		IFloorDisplayImplementor floorDisplayImplementor = getFloorDisplayImplementor();
+		floorDisplayImplementor.showDirection(direction);
+		floorDisplayImplementor.expressDirectionByVoice(direction);
 	}
 }
