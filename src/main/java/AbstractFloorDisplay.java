@@ -3,7 +3,7 @@ abstract class AbstractFloorDisplay {
 	protected ElevatorController elevatorController;
 	private IFloorDisplayImplementor floorDisplayImplementor;
 	
-	public AbstractFloorDisplay(ElevatorController elevatorController,
+	protected AbstractFloorDisplay(ElevatorController elevatorController,
 								IFloorDisplayImplementor floorDisplayModule) {
 		this.elevatorController = elevatorController;
 		this.floorDisplayImplementor = floorDisplayModule;
