@@ -15,10 +15,10 @@ public class FloorDoor {
 		case LG:
 			doorOpenedForLG = 0;
 			break;
-		case Hyundai:
+		case HYUNDAI:
 			doorOpenedForHyundai = false;
 			break;
-		case Samsung:
+		case SAMSUNG:
 			doorOpenedForSamsung = 'X';
 			break;
 		}
@@ -29,11 +29,11 @@ public class FloorDoor {
 			System.out.println(floor + "th Floor Door Open") ;
 			doorOpenedForLG = 1;
 			break;
-		case Hyundai:
+		case HYUNDAI:
 			System.out.println(floor + "th Floor Door Open") ;
 			doorOpenedForHyundai = true;
 			break;
-		case Samsung:
+		case SAMSUNG:
 			System.out.println(floor + "th Floor Door Open") ;
 			doorOpenedForSamsung = 'O';
 			break;
@@ -45,11 +45,11 @@ public class FloorDoor {
 			System.out.println(floor + "th Floor Door Close") ;	
 			doorOpenedForLG = 0;
 			break;
-		case Hyundai:
+		case HYUNDAI:
 			System.out.println(floor + "th Floor Door Close") ;	
 			doorOpenedForHyundai = false;
 			break;
-		case Samsung:
+		case SAMSUNG:
 			System.out.println(floor + "th Floor Door Close") ;	
 			doorOpenedForSamsung = 'X';
 			break;
@@ -61,10 +61,10 @@ public class FloorDoor {
 		case LG:
 			status = (doorOpenedForLG == 1) ? DoorStatus.OPEN : DoorStatus.CLOSED;
 			break;
-		case Hyundai:
+		case HYUNDAI:
 			status = (doorOpenedForHyundai) ? DoorStatus.OPEN : DoorStatus.CLOSED;
 			break;
-		case Samsung:
+		case SAMSUNG:
 			status = (doorOpenedForSamsung == 'O') ? DoorStatus.OPEN : DoorStatus.CLOSED;
 			break;
 		}

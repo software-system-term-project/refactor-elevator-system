@@ -24,11 +24,11 @@ public class Main {
 		List<ElevatorController> elevatorControllers = new ArrayList<>();
 		
 		// Devices for Elevator 1
-		ElevatorManager elevatorMotor1 = new ElevatorManager(DeviceVendor.Samsung);
+		ElevatorManager elevatorMotor1 = new ElevatorManager(DeviceVendor.SAMSUNG);
 		JavaDoorTimer doorTimer1 = new JavaDoorTimer();
 			
-		ElevatorDoor elevatorDoor1 = new ElevatorDoor(DeviceVendor.Samsung);
-		List<FloorDoor> floorDoors1 = createFloorDoors(floorCount, DeviceVendor.Samsung);
+		ElevatorDoor elevatorDoor1 = new ElevatorDoor(DeviceVendor.SAMSUNG);
+		List<FloorDoor> floorDoors1 = createFloorDoors(floorCount, DeviceVendor.SAMSUNG);
 		
 		// every floor stop
 		ElevatorController elevatorController1 = new ElevatorController(0,
@@ -44,9 +44,9 @@ public class Main {
 		elevatorControllers.add(elevatorController1);
 		
 		// Devices for Elevator 2
-		ElevatorManager elevatorMotor2 = new ElevatorManager(DeviceVendor.Hyundai);
-		ElevatorDoor elevatorDoor2 = new ElevatorDoor(DeviceVendor.Hyundai);
-		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.Hyundai);
+		ElevatorManager elevatorMotor2 = new ElevatorManager(DeviceVendor.HYUNDAI);
+		ElevatorDoor elevatorDoor2 = new ElevatorDoor(DeviceVendor.HYUNDAI);
+		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.HYUNDAI);
 		
 		// demand only stop
 		ElevatorController elevatorController2 = new ElevatorController(1,

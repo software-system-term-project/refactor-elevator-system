@@ -26,13 +26,13 @@ public class ElevatorManager {
 			return;
 		
 		switch ( motorVendor ) {
-		case Hyundai:
+		case HYUNDAI:
 			System.out.println("move Hyundai Motor, Direction: " + direction) ;
 			break;
 		case LG:
 			System.out.println("move LG Motor, Direction: " + direction) ;
 			break;
-		case Samsung:
+		case SAMSUNG:
 			System.out.println("move Samsung Motor, Direction: " + direction) ;
 			break;
 		default:
@@ -42,13 +42,13 @@ public class ElevatorManager {
 	}
 	public void stop() {
 		switch ( motorVendor ) {
-		case Hyundai:
+		case HYUNDAI:
 			System.out.println("Hyundai Elevator Motor Stop") ;
 			break;
 		case LG:
 			System.out.println("LG Elevator Motor Stop") ;
 			break;
-		case Samsung:
+		case SAMSUNG:
 			System.out.println("Samsung Elevator Motor Stop") ;
 			break;
 		default:
