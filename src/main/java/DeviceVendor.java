@@ -1,5 +1,5 @@
 
 
 public enum DeviceVendor {
-	LG, Samsung, Hyundai
+	LG, SAMSUNG, HYUNDAI
 }

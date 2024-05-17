@@ -5,6 +5,7 @@ import java.util.TimerTask;
 class DoorTimerTask extends TimerTask {
 	private ElevatorController doorTimeout;
 
+	@Override
 	public void run() {
 		doorTimeout.doorTimeout() ;
 	}
