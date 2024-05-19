@@ -65,7 +65,7 @@ public class Main {
 		List<FloorDoor> floorDoors = new ArrayList<>();
 		
 		for ( int i = 0 ; i < floorCount; i ++ )
-			floorDoors.add(new FloorDoor(vendor, i));
+			floorDoors.add(new FloorDoor(vendor, new Floor(i)));
 		return floorDoors;
 	}
 }

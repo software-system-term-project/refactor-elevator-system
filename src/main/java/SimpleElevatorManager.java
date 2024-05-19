@@ -1,48 +1,48 @@
 import java.util.Calendar;
 import java.util.List;
 class SimpleElevatorManager {
-	private List<ElevatorController> ctrls ;
+	private List<ElevatorController> controllers;
 
-	public SimpleElevatorManager(List<ElevatorController> ctrls) {
-		this.ctrls = ctrls;
+	public SimpleElevatorManager(List<ElevatorController> controllers) {
+		this.controllers = controllers;
 	}	
-	public void requestElevator(int dest, int dir) {
+	public void requestElevator(Floor destination, int dir) {
 		int sel;
 		// 0..23
 		int hr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
 		if ( hr < 12 ) { // ����; Response Time Scheduler
-			sel = ctrls.size() -1;
+			sel = controllers.size() -1;
 			System.out.println("ResponseTimeScheduler selects " + sel);
 		}
 		else { // ����; Throughput Scheduler
 			sel = 0;
 			System.out.println("ThroughputScheduler selects " + sel);
 		}
-		ctrls.get(sel).goTo(dest) ;
+		controllers.get(sel).goTo(destination) ;
 	}
 	public void emergencyStop(boolean goTo1stFloor) {
-		for ( ElevatorController ctrl: ctrls )
+		for ( ElevatorController controller: controllers)
 			if ( goTo1stFloor ) {
-				ctrl.getFloorstobeVisited().clear();
-				ctrl.goTo(1);
+				controller.getFloorstobeVisited().clear();
+				controller.goTo(new Floor(1));
 			}
 			else
-				ctrl.stop();
+				controller.stop();
 	}
-	public boolean isToBeVisistedFloor(int flr) {
-		for ( ElevatorController ctrl: ctrls ) {
-			if ( ctrl.getFloorstobeVisited().contains(flr) ) return true;
+	public boolean isToBeVisistedFloor(Floor floor) {
+		for ( ElevatorController controller: controllers) {
+			if ( controller.getFloorstobeVisited().contains(floor) ) return true;
 		}
 		return false;
 	}
 	public void print() {
-		for ( ElevatorController ctrl: ctrls ) {
-			print(ctrl);
+		for ( ElevatorController controller: controllers) {
+			print(controller);
 		}
 	}
-	private void print(ElevatorController ctrl) {
-		System.out.println(ctrl.getCurFlr());
-		System.out.println(ctrl.getCurDir());
-		System.out.println(ctrl.getFloorstobeVisited());
+	private void print(ElevatorController controller) {
+		System.out.println(controller.getCurFlr());
+		System.out.println(controller.getCurDir());
+		System.out.println(controller.getFloorstobeVisited());
 	}
 }

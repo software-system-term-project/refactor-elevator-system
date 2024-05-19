@@ -27,8 +27,22 @@ public class Floor {
         return value >= MIN_FLOOR && value <= MAX_FLOOR;
     }
 
+    public boolean isHigherThan(Floor other) {
+        return value > other.value;
+    }
+
+    public boolean isLowerThan(Floor other) {
+        return value < other.value;
+    }
+
+    public boolean isEqual(Floor other) {
+        return value == other.value;
+    }
+
     @Override
     public String toString() {
-        return value + "층";
+        return value + "";
     }
+
+
 }

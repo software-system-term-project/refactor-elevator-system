@@ -8,11 +8,11 @@ public class LGFloorDisplayImplementor implements IFloorDisplayImplementor {
 		activated = false;
 	}
 	@Override
-	public void showCurrentPosition(int floor) {
+	public void showCurrentPosition(Floor floor) {
 		if ( ! activated ) return;
 		System.out.println("LG Display: Current Position " + floor);
 	}
-	public void expressCurrentPositionByVoice(int floor) {
+	public void expressCurrentPositionByVoice(Floor floor) {
 		if ( ! activated ) return;
 		System.out.println("LG Voice: Current Position " + floor);
 	}

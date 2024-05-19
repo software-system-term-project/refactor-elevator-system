@@ -7,11 +7,11 @@ public class HyundaiFloorDisplayImplementor implements IFloorDisplayImplementor 
 	public void deactivateDisplay() {
 		activated = false;
 	}
-	public void showCurrentPosition(int floor) {
+	public void showCurrentPosition(Floor floor) {
 		if ( ! activated ) return;
 		System.out.println("Hyundai Display: Current Position " + floor);
 	}
-	public void expressCurrentPositionByVoice(int floor) {
+	public void expressCurrentPositionByVoice(Floor floor) {
 		if ( ! activated ) return;
 		System.out.println("Hyundai Voice: Current Position " + floor);
 	}
