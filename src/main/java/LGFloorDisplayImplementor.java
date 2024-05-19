@@ -1,27 +1,28 @@
 
 public class LGFloorDisplayImplementor implements IFloorDisplayImplementor {
-	private int activated = 1;
+	private boolean activated = true;
 	public void activateDisplay() {
-		activated = 1;
+		activated = true;
 	}
 	public void deactivateDisplay() {
-		activated = 0;
+		activated = false;
 	}
 	@Override
-	public void showCurrentPosition(int floor) {
-		if ( activated == 0 ) return;
-		System.out.println("LG Display: Current Postion " + floor);
+	public void showCurrentPosition(Floor floor) {
+		if ( ! activated ) return;
+		System.out.println("LG Display: Current Position " + floor);
 	}
-	public void expressCurrentPositionByVoice(int floor) {
-		if ( activated == 0 ) return;
-		System.out.println("LG Voice: Current Postion " + floor);
+	public void expressCurrentPositionByVoice(Floor floor) {
+		if ( ! activated ) return;
+		System.out.println("LG Voice: Current Position " + floor);
 	}
+
 	public void showDirection(Direction direction) {
-		if ( activated == 0 ) return;
+		if ( ! activated ) return;
 		System.out.println("LG Display: Current Direction " + direction);
 	}
 	public void expressDirectionByVoice(Direction direction) {
-		if ( activated == 0 ) return;
+		if ( ! activated ) return;
 		System.out.println("LG Voice: Current Direction " + direction);
 	}
 }

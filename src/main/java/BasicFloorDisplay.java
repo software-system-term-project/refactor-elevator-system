@@ -5,7 +5,7 @@ public class BasicFloorDisplay extends AbstractFloorDisplay {
 	}
 	
 	@Override
-	public void showPosition(int floor) {
+	public void showPosition(Floor floor) {
 		IFloorDisplayImplementor floorDisplayImplementor = getFloorDisplayImplementor();
 		floorDisplayImplementor.showCurrentPosition(floor);
 	}

@@ -1,13 +1,13 @@
 
 public class FloorDoor {
 	private DeviceVendor vendor;
-	private int floor ;
+	private Floor floor ;
 	
 	private int doorOpenedForLG;
 	private boolean doorOpenedForHyundai;
 	private char doorOpenedForSamsung;
 
-	public FloorDoor(DeviceVendor vendor, int floor) {
+	public FloorDoor(DeviceVendor vendor, Floor floor) {
 		this.vendor = vendor;
 		this.floor = floor;
 		
@@ -70,5 +70,5 @@ public class FloorDoor {
 		}
 		return status;
 	}
-	public int getFloor() { return floor; }
+	public Floor getFloor() { return floor; }
 }

@@ -1,8 +1,8 @@
 public class ElevatorRequest {
-	private final int flr;
+	private final Floor flr;
 	private SimpleElevatorManager em;
 
-	public ElevatorRequest(int flr, SimpleElevatorManager em) {
+	public ElevatorRequest(Floor flr, SimpleElevatorManager em) {
 		this.flr = flr;
 		this.em = em;
 	}

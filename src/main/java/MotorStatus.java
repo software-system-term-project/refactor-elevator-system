@@ -1,3 +1,3 @@
 
 
-public enum MotorStatus { MOVING, STOPPED}
+public enum MotorStatus { MOVING, STOPPED }
