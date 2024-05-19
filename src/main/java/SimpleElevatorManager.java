@@ -6,7 +6,8 @@ class SimpleElevatorManager {
 	public SimpleElevatorManager(List<ElevatorController> controllers) {
 		this.controllers = controllers;
 	}	
-	public void requestElevator(Floor destination, int dir) {
+
+	public void requestElevator(Floor destination, Direction dir) {
 		int sel;
 		// 0..23
 		int hr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;

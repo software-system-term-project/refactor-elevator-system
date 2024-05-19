@@ -11,7 +11,7 @@ class ElevatorController {
 	
 	private List<Floor> floorstobeVisited = new ArrayList<>();
 	private Floor curFlr = new Floor(1);
-	private int curDir = 0;
+	private Direction curDir = Direction.;
 	
 	private ControlRoomDisplay controlRoomDisplay;
 	private ElevatorInsideDisplay elevatorInsideDisplay;
@@ -31,9 +31,9 @@ class ElevatorController {
 	}
 	public void stop() {
 		// elevatorMotor, elevatorDoor, floorDoors should not be null
-		if ( getCurDir() != 0) {
+		if ( getCurDir() != Direction.STOP) {
 			elevatorManager.stop();
-			setCurDir(0);
+			setCurDir(Direction.STOP);
 		}
 		// open doors
 		elevatorDoor.open() ;
@@ -45,13 +45,14 @@ class ElevatorController {
 		if ( ! floorstobeVisited.contains(dst) )
 			floorstobeVisited.add(dst) ;
 		
-		if ( getCurDir() == 0 ) {	
-			int nxtDir;
-			if ( floorstobeVisited.isEmpty() ) nxtDir = 0 ;
+		if ( getCurDir() == Direction.STOP ) {
+			Direction nxtDir;
+			if ( floorstobeVisited.isEmpty() ) nxtDir = Direction.STOP ;
 			
-			if ( dst.isHigherThan(curFlr) ) nxtDir = 1 ;
-			else nxtDir =  -1 ;
-			if ( nxtDir != 0) {
+			if ( dst.isHigherThan(curFlr) ) nxtDir = Direction.UP;
+			else nxtDir =  Direction.DOWN;
+			if ( nxtDir != Direction.STOP) {
+
 				elevatorManager.move(getCurFlr(), nxtDir) ;
 				setCurDir(nxtDir);
 			}
@@ -70,7 +71,7 @@ class ElevatorController {
 			
 		if ( needToStop ) {
 			elevatorManager.stop() ;
-			setCurDir(0);
+			setCurDir(Direction.STOP);
 			
 			// open doors
 			elevatorDoor.open() ;
@@ -83,18 +84,18 @@ class ElevatorController {
 	public void doorTimeout() {
 		// elevatorMotor, elevatorDoor, floorDoors should not be null
 
-		int nxtDir;
-		if ( floorstobeVisited.isEmpty() ) nxtDir = 0 ;
+		Direction nxtDir;
+		if ( floorstobeVisited.isEmpty() ) nxtDir = Direction.STOP;
 		
 		final Floor dst = floorstobeVisited.get(0) ;
-		if ( dst.isHigherThan(curFlr) ) nxtDir = 1 ;
-		else nxtDir =  -1 ;
+		if ( dst.isHigherThan(curFlr) ) nxtDir = Direction.UP ;
+		else nxtDir =  Direction.DOWN ;
 		
 		elevatorDoor.close() ;
 		floorDoors.get(getCurFlr().getValue()).close() ;
 		if ( dt != null ) dt.stop() ;
 		
-		if ( nxtDir != 0 ) {
+		if ( nxtDir != Direction.STOP ) {
 			elevatorManager.move(getCurFlr(), nxtDir) ;
 			setCurDir(nxtDir);
 		}
@@ -102,7 +103,7 @@ class ElevatorController {
 	public void openDoor() {
 		// elevatorDoor, floorDoors should not be null
 
-		if ( getCurDir() == 0  ) {
+		if ( getCurDir() == Direction.STOP  ) {
 			// open doors
 			elevatorDoor.open() ;
 			floorDoors.get(getCurFlr().getValue()).open() ;
@@ -111,7 +112,7 @@ class ElevatorController {
 	}
 	public void closeDoor() {
 		// elevatorDoor, floorDoors should not be null
-		if ( getCurDir() == 0 ) {
+		if ( getCurDir() == Direction.STOP ) {
 			// closeDoor
 			elevatorDoor.close() ;
 			floorDoors.get(getCurFlr().getValue()).close() ;
@@ -143,10 +144,10 @@ class ElevatorController {
 		elevatorInsideDisplay.update();
 		abstractFloorDisplay.update();
 	}
-	public int getCurDir() {
+	public Direction getCurDir() {
 		return curDir;
 	}
-	public void setCurDir(int curDir) {
+	public void setCurDir(Direction curDir) {
 		this.curDir = curDir;
 		
 		controlRoomDisplay.update();

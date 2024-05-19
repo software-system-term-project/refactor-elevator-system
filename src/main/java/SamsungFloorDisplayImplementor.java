@@ -15,11 +15,12 @@ public class SamsungFloorDisplayImplementor implements IFloorDisplayImplementor 
 		if ( ! activated ) return;
 		System.out.println("Samsung Voice: Current Position " + floor);
 	}
-	public void showDirection(int direction) {
+
+	public void showDirection(Direction direction) {
 		if ( ! activated ) return;
 		System.out.println("Samsung Display: Current Direction " + direction);
 	}
-	public void expressDirectionByVoice(int direction) {
+	public void expressDirectionByVoice(Direction direction) {
 		if ( ! activated ) return;
 		System.out.println("Samsung Voice: Current Direction " + direction);
 	}

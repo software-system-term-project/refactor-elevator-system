@@ -16,11 +16,12 @@ public class LGFloorDisplayImplementor implements IFloorDisplayImplementor {
 		if ( ! activated ) return;
 		System.out.println("LG Voice: Current Position " + floor);
 	}
-	public void showDirection(int direction) {
+
+	public void showDirection(Direction direction) {
 		if ( ! activated ) return;
 		System.out.println("LG Display: Current Direction " + direction);
 	}
-	public void expressDirectionByVoice(int direction) {
+	public void expressDirectionByVoice(Direction direction) {
 		if ( ! activated ) return;
 		System.out.println("LG Voice: Current Direction " + direction);
 	}

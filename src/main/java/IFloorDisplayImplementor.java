@@ -5,6 +5,6 @@ public interface IFloorDisplayImplementor {
 	
 	void showCurrentPosition(Floor floor);
 	void expressCurrentPositionByVoice(Floor floor);
-	void showDirection(int direction);
-	void expressDirectionByVoice(int direction);
+	void showDirection(Direction direction);
+	void expressDirectionByVoice(Direction direction);
 }
