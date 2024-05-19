@@ -2,22 +2,22 @@
 public class ElevatorDoor {
 	private DeviceVendor vendor;
 
-	private String elevatorDoorStatusForLG ;
-	private char elevatorDoorStatusForSamsung ;
-	private int elevatorDoorOpenedForHyundai ;
+	private DoorStatus elevatorDoorStatusForLG ;
+	private DoorStatus elevatorDoorStatusForSamsung ;
+	private DoorStatus elevatorDoorOpenedForHyundai ;
 
 	public ElevatorDoor(DeviceVendor vendor) {
 		this.vendor = vendor;
 		
 		switch ( vendor ) {
 		case LG:
-			elevatorDoorStatusForLG = "Closed";
+			elevatorDoorStatusForLG = DoorStatus.CLOSED;
 			break;
 		case HYUNDAI:
-			elevatorDoorOpenedForHyundai = 0;
+			elevatorDoorOpenedForHyundai = DoorStatus.CLOSED;
 			break;
 		case SAMSUNG:
-			elevatorDoorStatusForSamsung = 'C';
+			elevatorDoorStatusForSamsung = DoorStatus.CLOSED;
 			break;
 		}
 	}
@@ -25,13 +25,13 @@ public class ElevatorDoor {
 		DoorStatus status = null;
 		switch ( vendor ) {
 		case LG:
-			status = elevatorDoorStatusForLG.equals("Closed") ? DoorStatus.CLOSED : DoorStatus.OPEN;
+			status = elevatorDoorStatusForLG.equals(DoorStatus.CLOSED) ? DoorStatus.CLOSED : DoorStatus.OPEN;
 			break;
 		case HYUNDAI:
-			status = elevatorDoorOpenedForHyundai == 0 ? DoorStatus.CLOSED : DoorStatus.OPEN;
+			status = elevatorDoorOpenedForHyundai == DoorStatus.CLOSED ? DoorStatus.CLOSED : DoorStatus.OPEN;
 			break;
 		case SAMSUNG:
-			status = elevatorDoorStatusForSamsung == 'C' ? DoorStatus.CLOSED : DoorStatus.OPEN;
+			status = elevatorDoorStatusForSamsung == DoorStatus.CLOSED ? DoorStatus.CLOSED : DoorStatus.OPEN;
 			break;
 		}
 		return status;
@@ -39,38 +39,38 @@ public class ElevatorDoor {
 	public void open() {
 		switch ( vendor ) {
 		case LG:
-			if ( elevatorDoorStatusForLG.equals("Opened") ) return ;
+			if ( elevatorDoorStatusForLG.equals(DoorStatus.OPEN) ) return ;
 			System.out.println("open LG Elevator Door") ;
-			elevatorDoorStatusForLG = "Opened";
+			elevatorDoorStatusForLG = DoorStatus.CLOSED;
 			break;
 		case HYUNDAI:
-			if ( elevatorDoorOpenedForHyundai == 1 ) return ;
+			if ( elevatorDoorOpenedForHyundai == DoorStatus.CLOSED ) return ;
 			System.out.println("open Hyundai Elevator Door") ;
-			elevatorDoorOpenedForHyundai = 1;
+			elevatorDoorOpenedForHyundai = DoorStatus.CLOSED;
 			break;
 		case SAMSUNG:
-			if ( elevatorDoorStatusForSamsung == 'O' ) return ;
+			if ( elevatorDoorStatusForSamsung == DoorStatus.CLOSED ) return ;
 			System.out.println("open Samsung Elevator Door") ;
-			elevatorDoorStatusForSamsung = 'O';
+			elevatorDoorStatusForSamsung = DoorStatus.CLOSED;
 			break;
 		}	
 	}
 	public void close() {
 		switch ( vendor ) {
 		case LG:
-			if ( elevatorDoorStatusForLG.equals("Closed") ) return ;
+			if ( elevatorDoorStatusForLG.equals(DoorStatus.CLOSED) ) return ;
 			System.out.println("close LG Elevator Door") ;		
-			elevatorDoorStatusForLG = "Closed";
+			elevatorDoorStatusForLG = DoorStatus.CLOSED;
 			break;
 		case HYUNDAI:
-			if ( elevatorDoorOpenedForHyundai == 0  ) return ;
+			if ( elevatorDoorOpenedForHyundai == DoorStatus.CLOSED  ) return ;
 			System.out.println("close Hyundai Elevator Door") ;		
-			elevatorDoorOpenedForHyundai = 0;
+			elevatorDoorOpenedForHyundai = DoorStatus.CLOSED;
 			break;
 		case SAMSUNG:
-			if ( elevatorDoorStatusForSamsung == 'C'  ) return ;
+			if ( elevatorDoorStatusForSamsung == DoorStatus.CLOSED  ) return ;
 			System.out.println("close Samsung Elevator Door") ;		
-			elevatorDoorStatusForSamsung = 'C';
+			elevatorDoorStatusForSamsung = DoorStatus.CLOSED;
 			break;
 		}
 	}

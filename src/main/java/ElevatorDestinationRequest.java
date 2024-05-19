@@ -1,12 +1,12 @@
 public class ElevatorDestinationRequest {
-	private final ElevatorController ctrl;
-	private Floor flr;
+	private final ElevatorController elevatorController;
+	private Floor floor;
 	
-	public ElevatorDestinationRequest(Floor floor, 	ElevatorController ctrl) {
-		this.flr = floor;
-		this.ctrl = ctrl;
+	public ElevatorDestinationRequest(Floor floor, 	ElevatorController elevatorController) {
+		this.floor = floor;
+		this.elevatorController = elevatorController;
 	}
 	public void pressed() {
-		ctrl.goTo(flr);
+		elevatorController.goTo(floor);
 	}
 }
