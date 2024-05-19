@@ -1,11 +1,11 @@
 public class ElevatorRequest {
-	private final Floor flr;
-	private SimpleElevatorManager em;
+	private final Floor floor;
+	private SimpleElevatorManager elavatorManager;
 
-	public ElevatorRequest(Floor flr, SimpleElevatorManager em) {
-		this.flr = flr;
-		this.em = em;
+	public ElevatorRequest(Floor floor, SimpleElevatorManager elavatorManager) {
+		this.floor = floor;
+		this.elavatorManager = elavatorManager;
 	}
-	public void up() { em.requestElevator(flr, 1); }
-	public void down() { em.requestElevator(flr, -1); }
+	public void up() { elavatorManager.requestElevator(floor, Direction.UP); }
+	public void down() { elavatorManager.requestElevator(floor, Direction.DOWN); }
 }
