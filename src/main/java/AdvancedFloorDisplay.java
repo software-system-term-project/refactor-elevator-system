@@ -11,7 +11,7 @@ public class AdvancedFloorDisplay extends AbstractFloorDisplay {
 		floorDisplayImplementor.expressCurrentPositionByVoice(floor);
 	}
 	@Override
-	public void showDirection(int direction) {
+	public void showDirection(Direction direction) {
 		IFloorDisplayImplementor floorDisplayImplementor = getFloorDisplayImplementor();
 		floorDisplayImplementor.showDirection(direction);
 		floorDisplayImplementor.expressDirectionByVoice(direction);
