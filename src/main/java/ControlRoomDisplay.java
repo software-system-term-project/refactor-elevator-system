@@ -6,7 +6,7 @@ public class ControlRoomDisplay {
 		this.elevatorController = elevatorController;
 	}
 	public void update() {
-		Floor currentFloor = elevatorController.getCurFlr() ;
+		Floor currentFloor = elevatorController.getCurrentFloor() ;
 		System.out.println("Control Room: " + currentFloor) ;
 	}
 }

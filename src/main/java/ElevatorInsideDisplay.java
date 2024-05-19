@@ -5,7 +5,7 @@ public class ElevatorInsideDisplay {
 		this.elevatorController = elevatorController ;
 	}
 	public void update() {
-		Floor currentFloor = elevatorController.getCurFlr() ;
+		Floor currentFloor = elevatorController.getCurrentFloor() ;
 		System.out.println("Elevator Inside Display: " + currentFloor) ;
 	}
 }
