@@ -10,7 +10,7 @@ public class BasicFloorDisplay extends AbstractFloorDisplay {
 		floorDisplayImplementor.showCurrentPosition(floor);
 	}
 	@Override
-	public void showDirection(int direction) {
+	public void showDirection(Direction direction) {
 		IFloorDisplayImplementor floorDisplayImplementor = getFloorDisplayImplementor();
 		floorDisplayImplementor.showDirection(direction);
 	}

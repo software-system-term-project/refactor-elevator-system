@@ -10,7 +10,7 @@ abstract class AbstractFloorDisplay {
 	}
 	public void update() {
 		int currentFloor = elevatorController.getCurFlr() ;
-		int currentDirection = elevatorController.getCurDir();
+		Direction currentDirection = elevatorController.getCurDir();
 		showPosition(currentFloor);
 		showDirection(currentDirection);
 	}
@@ -26,6 +26,6 @@ abstract class AbstractFloorDisplay {
 	}
 
 	protected IFloorDisplayImplementor getFloorDisplayImplementor() { return floorDisplayImplementor; }
-	protected abstract void showPosition(int flr);
-	protected abstract void showDirection(int dir);
+	protected abstract void showPosition(int floor);
+	protected abstract void showDirection(Direction direction);
 }
