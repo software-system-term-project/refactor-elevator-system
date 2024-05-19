@@ -11,6 +11,18 @@ public class Floor {
         }
     }
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        if (isValidFloor(value)) {
+            this.value = value;
+        } else {
+            throw new IllegalArgumentException("Invalid floor value. Floor must be between -100 and 1000.");
+        }
+    }
+
     private boolean isValidFloor(int value) {
         return value >= MIN_FLOOR && value <= MAX_FLOOR;
     }
