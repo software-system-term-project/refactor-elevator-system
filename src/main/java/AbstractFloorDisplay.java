@@ -9,8 +9,8 @@ abstract class AbstractFloorDisplay {
 		this.floorDisplayImplementor = floorDisplayModule;
 	}
 	public void update() {
-		Floor currentFloor = elevatorController.getCurFlr() ;
-		Direction currentDirection = elevatorController.getCurDir();
+		Floor currentFloor = elevatorController.getCurrentFloor() ;
+		Direction currentDirection = elevatorController.getCurrentDirection();
 		showPosition(currentFloor);
 		showDirection(currentDirection);
 	}

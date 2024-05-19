@@ -22,7 +22,7 @@ public class ElevatorManager {
 		if (  getMotorStatus() == MotorStatus.MOVING ) return ;
 		
 		assert elevatorController != null;
-		DoorStatus doorStatus = elevatorController.getDrSts(currentFloor) ;
+		DoorStatus doorStatus = elevatorController.getDoorStatus(currentFloor) ;
 		if ( doorStatus == DoorStatus.OPEN )
 			return;
 		
