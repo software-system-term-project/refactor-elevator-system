@@ -5,7 +5,7 @@ public class ElevatorInsideDisplay {
 		this.ctrl = ctrl ;
 	}
 	public void update() {
-		int curFlr = ctrl.getCurFlr() ;
+		Floor curFlr = ctrl.getCurFlr() ;
 		System.out.println("Elevator Inside Display: " + curFlr) ;
 	}
 }

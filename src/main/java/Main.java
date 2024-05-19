@@ -13,7 +13,7 @@ public class Main {
 		
 		List<ElevatorRequest> requestButtons = new ArrayList<>();
 		for ( int i = 0; i < floorCount; i ++ ) {
-			int floor = i+1;
+			Floor floor = new Floor(i + 1);
 			ElevatorRequest requestButton = new ElevatorRequest(floor,em);
 			requestButtons.add(requestButton);
 		}

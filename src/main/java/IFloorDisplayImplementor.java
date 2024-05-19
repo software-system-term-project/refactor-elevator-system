@@ -1,10 +1,10 @@
 
 public interface IFloorDisplayImplementor {
-	public void activateDisplay();
-	public void deactivateDisplay();
+	void activateDisplay();
+	void deactivateDisplay();
 	
-	public void showCurrentPosition(Floor floor);
-	public void expressCurrentPositionByVoice(Floor floor);
-	public void showDirection(int direction);
-	public void expressDirectionByVoice(int direction);
+	void showCurrentPosition(Floor floor);
+	void expressCurrentPositionByVoice(Floor floor);
+	void showDirection(int direction);
+	void expressDirectionByVoice(int direction);
 }
