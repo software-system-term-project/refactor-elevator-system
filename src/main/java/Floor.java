@@ -12,10 +12,7 @@ public class Floor {
     }
 
     private boolean isValidFloor(int value) {
-        if (value >= MIN_FLOOR && value <= MAX_FLOOR) {
-            return true;
-        }
-        return false;
+        return value >= MIN_FLOOR && value <= MAX_FLOOR;
     }
 
     @Override
