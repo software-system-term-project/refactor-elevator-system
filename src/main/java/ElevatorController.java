@@ -6,7 +6,7 @@ import java.util.List;
 class ElevatorController {
 	private ElevatorControllerKind kind; // 0: every floor stop, 1: demand only stop
 
-	private ElevatorManager elevatorManager;
+	private ElevatorMotor elevatorMotor;
 	private ElevatorDoor elevatorDoor;
 	private List<FloorDoor> floorDoors;
 	private JavaDoorTimer doorTimer;
@@ -18,11 +18,11 @@ class ElevatorController {
 	private ElevatorInsideDisplay elevatorInsideDisplay;
 	private AbstractFloorDisplay abstractFloorDisplay;
 	
-	public ElevatorController(ElevatorControllerKind kind, ElevatorManager elevatorMotor,
+	public ElevatorController(ElevatorControllerKind kind, ElevatorMotor elevatorMotor,
 							  ElevatorDoor elevatorDoor, List<FloorDoor> floorDoors,
 							  JavaDoorTimer doorTimer) {
 		this.kind = kind;
-		this.elevatorManager = elevatorMotor;
+		this.elevatorMotor = elevatorMotor;
 		this.elevatorDoor = elevatorDoor;
 		this.floorDoors = floorDoors;
 		this.doorTimer = doorTimer;

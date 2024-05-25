@@ -1,10 +1,10 @@
 
-public class ElevatorManager {
+public class ElevatorMotor {
 	private ElevatorController elevatorController ;
 	private MotorStatus motorStatus ;
 	private DeviceVendor motorVendor;
 	
-	public ElevatorManager(DeviceVendor motorVendor) {
+	public ElevatorMotor(DeviceVendor motorVendor) {
 		this.motorVendor = motorVendor;
 		motorStatus = MotorStatus.STOPPED ;
 	}

@@ -24,7 +24,7 @@ public class Main {
 		List<ElevatorController> elevatorControllers = new ArrayList<>();
 		
 		// Devices for Elevator 1
-		ElevatorManager elevatorMotor1 = new ElevatorManager(DeviceVendor.SAMSUNG);
+		ElevatorMotor elevatorMotor1 = new ElevatorMotor(DeviceVendor.SAMSUNG);
 		JavaDoorTimer doorTimer1 = new JavaDoorTimer();
 			
 		ElevatorDoor elevatorDoor1 = new ElevatorDoor(DeviceVendor.SAMSUNG);
@@ -44,7 +44,7 @@ public class Main {
 		elevatorControllers.add(elevatorController1);
 		
 		// Devices for Elevator 2
-		ElevatorManager elevatorMotor2 = new ElevatorManager(DeviceVendor.HYUNDAI);
+		ElevatorMotor elevatorMotor2 = new ElevatorMotor(DeviceVendor.HYUNDAI);
 		ElevatorDoor elevatorDoor2 = new ElevatorDoor(DeviceVendor.HYUNDAI);
 		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.HYUNDAI);
 		
