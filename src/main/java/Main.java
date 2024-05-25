@@ -9,12 +9,12 @@ public class Main {
 		
 		List<ElevatorController> elevatorControllers = createElevatorControllers(floorCount);
 		
-		SimpleElevatorManager em = new SimpleElevatorManager(elevatorControllers);
+		SimpleElevatorManager simpleElevatorManager = new SimpleElevatorManager(elevatorControllers);
 		
 		List<ElevatorRequest> requestButtons = new ArrayList<>();
 		for ( int i = 0; i < floorCount; i ++ ) {
 			Floor floor = new Floor(i + 1);
-			ElevatorRequest requestButton = new ElevatorRequest(floor,em);
+			ElevatorRequest requestButton = new ElevatorRequest(floor,simpleElevatorManager);
 			requestButtons.add(requestButton);
 		}
 		requestButtons.get(0).down();
@@ -31,7 +31,7 @@ public class Main {
 		List<FloorDoor> floorDoors1 = createFloorDoors(floorCount, DeviceVendor.SAMSUNG);
 		
 		// every floor stop
-		ElevatorController elevatorController1 = new ElevatorController(0,
+		ElevatorController elevatorController1 = new ElevatorController(ElevatorControllerKind.EveryFloorStop,
 				elevatorMotor1, elevatorDoor1, floorDoors1, doorTimer1);
 		doorTimer1.setDoorTimeout(elevatorController1);
 		elevatorMotor1.setElevatorController(elevatorController1);
@@ -49,7 +49,7 @@ public class Main {
 		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.HYUNDAI);
 		
 		// demand only stop
-		ElevatorController elevatorController2 = new ElevatorController(1,
+		ElevatorController elevatorController2 = new ElevatorController(ElevatorControllerKind.DemandOnly,
 					elevatorMotor2, elevatorDoor2, floorDoors2, null);
 		elevatorMotor2.setElevatorController(elevatorController2);
 

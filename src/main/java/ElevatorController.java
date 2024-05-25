@@ -42,13 +42,13 @@ class ElevatorController {
 	public void goTo(Floor destination) {
 		// elevatorMotor should not be null
 		if ( isNewDestination(destination) )
-		addDestination(destination) ;
+			addDestination(destination) ;
 		
 		if ( isElevatorMoving() ) return; 
 			
-			if ( hasNextDestination() ) {
-				moveElevator(determineMovingDirection());
-			}
+		if ( hasNextDestination() ) {
+			moveElevator(determineMovingDirection());
+		}
 			
 	}
 
@@ -131,7 +131,7 @@ class ElevatorController {
 	public void doorTimeout() {
 		closeDoor();
 		if ( hasNextDestination() )
-		moveElevator(determineMovingDirection());
+			moveElevator(determineMovingDirection());
 		}
 		
 	public void openDoor() {
@@ -162,11 +162,11 @@ class ElevatorController {
 		DoorStatus elevatorDoorState = elevatorDoor.getDoorStatus();
 		DoorStatus floorDS = floorDoors.get(getCurrentFloorToInt()).getDoorStatus();
 		
-		DoorStatus DS = DoorStatus.OPEN;
+		DoorStatus doorStatus = DoorStatus.OPEN;
 		if ( elevatorDoorState == DoorStatus.CLOSED && floorDS == DoorStatus.CLOSED )
-			DS = DoorStatus.CLOSED;
+			doorStatus = DoorStatus.CLOSED;
 		
-		return DS;
+		return doorStatus;
 	}
 	public Floor getCurrentFloor() {
 		return currentFloor;
