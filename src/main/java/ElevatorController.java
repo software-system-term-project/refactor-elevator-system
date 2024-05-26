@@ -91,12 +91,12 @@ class ElevatorController implements DisplaySubject {
 	}
 
 	//version 1
-	// private void stopElevator() {
-	// 		// introduce assertion
-	// 		assert elevatorMotor != null;
-	// 		elevatorMotor.stop() ;
-	// 		setCurrentDirection(Direction.IDLE);
-	// 		}
+	private void stopElevator() {
+	 		// introduce assertion
+	 		assert elevatorMotor != null;
+	 		elevatorMotor.stop() ;
+	 		setCurrentDirection(Direction.IDLE);
+	}
 
 	// private void doOpenDoor() {
 	// 		// introduce assertion
@@ -120,7 +120,6 @@ class ElevatorController implements DisplaySubject {
 		}
 
 	public void approaching(Floor floor) {
-
 		doApproaching(floor) ;
 
 		if ( ! needToStop(floor) ) return;
@@ -129,6 +128,11 @@ class ElevatorController implements DisplaySubject {
 		openDoor();
 		
 		removeDestination(floor) ;
+	}
+
+	private void doApproaching(Floor floor) {
+		System.out.println("\nApproaching " + floor + "th floor") ;
+		setCurrentFloor(floor) ;
 	}
 
 	private boolean needToStop(Floor floor) {
