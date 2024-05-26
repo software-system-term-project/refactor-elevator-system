@@ -37,9 +37,9 @@ public class Main {
 		elevatorMotor1.setElevatorController(elevatorController1);
 
 		ControlRoomDisplay controlRoomDisplay = new ControlRoomDisplay(elevatorController1);
-		elevatorController1.setControlRoomDisplay(controlRoomDisplay);
+		elevatorController1.attach(controlRoomDisplay);
 		ElevatorInsideDisplay elevatorInsideDisplay = new ElevatorInsideDisplay(elevatorController1);
-		elevatorController1.setElevatorInsideDisplay(elevatorInsideDisplay);
+		elevatorController1.attach(elevatorInsideDisplay);
 
 		elevatorControllers.add(elevatorController1);
 		
@@ -55,7 +55,7 @@ public class Main {
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
 		AdvancedFloorDisplay advancedFloorDisplay = new AdvancedFloorDisplay(elevatorController2, imp);
-		elevatorController2.setAbstractFloorDisplay(advancedFloorDisplay);
+		elevatorController2.attach(advancedFloorDisplay);
 		
 		elevatorControllers.add(elevatorController2);
 		return elevatorControllers;
