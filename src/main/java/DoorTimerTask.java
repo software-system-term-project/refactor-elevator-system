@@ -3,14 +3,14 @@
 import java.util.TimerTask;
 
 class DoorTimerTask extends TimerTask {
-	private ElevatorController doorTimeout;
+	private IDoorTimeout doorTimeout;
 
 	@Override
 	public void run() {
 		doorTimeout.doorTimeout() ;
 	}
 
-	public void setDoorTimeout(ElevatorController doorTimeout) {
+	public void setDoorTimeout(IDoorTimeout doorTimeout) {
 		this.doorTimeout = doorTimeout;
 	}	
 }

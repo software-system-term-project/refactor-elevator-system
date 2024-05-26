@@ -25,14 +25,16 @@ public class Main {
 		
 		// Devices for Elevator 1
 		ElevatorMotor elevatorMotor1 = new ElevatorMotor(DeviceVendor.SAMSUNG);
-		JavaDoorTimer doorTimer1 = new JavaDoorTimer();
+		DoorTimer doorTimer1 = new DoorTimer();
 			
 		ElevatorDoor elevatorDoor1 = new ElevatorDoor(DeviceVendor.SAMSUNG);
 		List<FloorDoor> floorDoors1 = createFloorDoors(floorCount, DeviceVendor.SAMSUNG);
 		
 		// every floor stop
+		DoorController doorController1 =
+				new DoorController(elevatorDoor1, floorDoors1, doorTimer1) ;
 		ElevatorController elevatorController1 = new ElevatorController(ElevatorControllerKind.EveryFloorStop,
-				elevatorMotor1, elevatorDoor1, floorDoors1, doorTimer1);
+				elevatorMotor1, doorController1);
 		doorTimer1.setDoorTimeout(elevatorController1);
 		elevatorMotor1.setElevatorController(elevatorController1);
 
@@ -49,8 +51,10 @@ public class Main {
 		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.HYUNDAI);
 		
 		// demand only stop
+		DoorController doorController2 =
+				new DoorController(elevatorDoor2, floorDoors2, null) ;
 		ElevatorController elevatorController2 = new ElevatorController(ElevatorControllerKind.DemandOnly,
-					elevatorMotor2, elevatorDoor2, floorDoors2, null);
+					elevatorMotor2, doorController2);
 		elevatorMotor2.setElevatorController(elevatorController2);
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
