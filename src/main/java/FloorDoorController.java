@@ -1,4 +1,4 @@
-public class FloorDoorController {
+public abstract class FloorDoorController {
 	protected DeviceVendor vendor;
 	protected Floor floor ;
 	

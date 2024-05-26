@@ -1,5 +1,5 @@
 
-public class ElevatorDoorController {
+public abstract class ElevatorDoorController {
 	protected DeviceVendor vendor;
 	protected DoorStatus elevatorDoorStatus;
 
@@ -14,12 +14,6 @@ public class ElevatorDoorController {
 		return status;
 	}
 
-	public void open()
-	{
-
-	}
-	public void close()
-	{
-		
-	}
+	public abstract void open();
+	public abstract void close();
 }
