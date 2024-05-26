@@ -9,7 +9,18 @@ public class FloorDoor {
 		this.vendor = vendor;
 		this.floor = floor;
 
-		floorDoorController = new FloorDoorController(vendor, floor);
+		switch (vendor) {
+			case SAMSUNG:
+				floorDoorController = new FloorDoorControllerSamsung(vendor, floor);
+				break;
+			case LG:
+				floorDoorController = new FloorDoorControllerLG(vendor, floor);
+				break;
+			case HYUNDAI:
+				floorDoorController = new FloorDoorControllerHyundai(vendor, floor);
+				break;
+		}
+
 	}
 	public void open() {
 		floorDoorController.open();

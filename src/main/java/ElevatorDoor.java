@@ -5,7 +5,18 @@ public class ElevatorDoor {
 
 	public ElevatorDoor(DeviceVendor vendor) {
 		this.vendor = vendor;
-		elevatorDoorController = new ElevatorDoorController(vendor);
+		switch (vendor) 
+		{
+			case SAMSUNG:
+				elevatorDoorController = new ElevatorDoorControllerSamsung(vendor);
+				break;	
+			case LG:
+				elevatorDoorController = new ElevatorDoorControllerLG(vendor);
+				break;
+			case HYUNDAI:
+				elevatorDoorController = new ElevatorDoorControllerHyundai(vendor);
+				break;
+		}
 	}
 	public DoorStatus getDoorStatus() {
 		return elevatorDoorController.getDoorStatus();
