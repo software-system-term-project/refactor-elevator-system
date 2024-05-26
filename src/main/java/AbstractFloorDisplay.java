@@ -1,5 +1,5 @@
 
-abstract class AbstractFloorDisplay {
+abstract class AbstractFloorDisplay implements DisplayObserver {
 	protected ElevatorController elevatorController;
 	private IFloorDisplayImplementor floorDisplayImplementor;
 	
@@ -8,9 +8,11 @@ abstract class AbstractFloorDisplay {
 		this.elevatorController = elevatorController;
 		this.floorDisplayImplementor = floorDisplayModule;
 	}
+
+	@Override
 	public void update() {
-		Floor currentFloor = elevatorController.getCurFlr() ;
-		Direction currentDirection = elevatorController.getCurDir();
+		Floor currentFloor = elevatorController.getCurrentFloor() ;
+		Direction currentDirection = elevatorController.getCurrentDirection();
 		showPosition(currentFloor);
 		showDirection(currentDirection);
 	}

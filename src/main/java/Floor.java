@@ -43,6 +43,4 @@ public class Floor {
     public String toString() {
         return value + "";
     }
-
-
 }

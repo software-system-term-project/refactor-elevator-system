@@ -1,28 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 
+class ElevatorController implements DisplaySubject {
+	private ElevatorControllerKind kind; // 0: every floor stop, 1: demand only stop
 
-
-class ElevatorController {
-	private int k; // 0: every floor stop, 1: demand only stop
-
-	private ElevatorManager elevatorManager;
+	private ElevatorMotor elevatorMotor;
 	private ElevatorDoor elevatorDoor;
 	private List<FloorDoor> floorDoors;
 	private JavaDoorTimer doorTimer;
 	private List<Floor> floorstobeVisited = new ArrayList<>();
-	private Floor curFlr = new Floor(1);
-	private Direction curDir = Direction.STOP;
+	private Floor currentFloor = new Floor(1);
+	private Direction currentDirection = Direction.IDLE;
+
+	private List<DisplayObserver> displayObservers;
 	
-	private ControlRoomDisplay controlRoomDisplay;
-	private ElevatorInsideDisplay elevatorInsideDisplay;
-	private AbstractFloorDisplay abstractFloorDisplay;
-	
-	public ElevatorController(int kind, ElevatorManager elevatorMotor,
+	public ElevatorController(ElevatorControllerKind kind, ElevatorMotor elevatorMotor,
 							  ElevatorDoor elevatorDoor, List<FloorDoor> floorDoors,
 							  JavaDoorTimer doorTimer) {
-		this.k = kind;
-		this.elevatorManager = elevatorMotor;
+		this.kind = kind;
+		this.elevatorMotor = elevatorMotor;
 		this.elevatorDoor = elevatorDoor;
 		this.floorDoors = floorDoors;
 		this.doorTimer = doorTimer;
@@ -32,150 +28,184 @@ class ElevatorController {
 	}
 	public void stop() {
 		// elevatorMotor, elevatorDoor, floorDoors should not be null
-		if ( getCurDir() != Direction.STOP) {
-			elevatorManager.stop();
-			setCurDir(Direction.STOP);
+		if ( isElevatorMoving() ) {
+			stopElevator();
 		}
+
 		// open doors
-		elevatorDoor.open() ;
-		floorDoors.get(getCurFlrtoInt()).open() ;
-		if ( doorTimer != null ) doorTimer.start() ;
+		openDoor();
 	}
-	public void goTo(Floor dst) {
+	public void goTo(Floor destination) {
 		// elevatorMotor should not be null
-		if ( ! floorstobeVisited.contains(dst) )
-			floorstobeVisited.add(dst) ;
+		if ( isNewDestination(destination) )
+			addDestination(destination) ;
 		
-		if ( getCurDir() == Direction.STOP ) {
-			Direction nxtDir;
-			if ( floorstobeVisited.isEmpty() ) nxtDir = Direction.STOP ;
+		if ( isElevatorMoving() ) return; 
 			
-			if ( dst.isHigherThan(curFlr) ) nxtDir = Direction.UP;
-			else nxtDir =  Direction.DOWN;
-			if ( nxtDir != Direction.STOP) {
+		if ( hasNextDestination() ) {
+			moveElevator(determineMovingDirection());
+		}
+			
+	}
 
-				elevatorManager.move(getCurFlr(), nxtDir) ;
-				setCurDir(nxtDir);
+	private boolean isNewDestination(Floor destination) {
+		return ! floorstobeVisited.contains(destination);
+		}
+
+	private boolean addDestination(Floor destination) {
+		return floorstobeVisited.add(destination);
+		}
+
+	private boolean hasNextDestination() {
+		return determineMovingDirection() != Direction.IDLE;
+		}
+
+	private Direction determineMovingDirection() {
+		// introduce explaining variable
+		final boolean noMoreDestinationFloors = floorstobeVisited.isEmpty();
+		if ( noMoreDestinationFloors ) return Direction.IDLE ;
+		final Floor destination = floorstobeVisited.get(0) ;
+		if ( destination.isHigherThan(currentFloor) ) return Direction.UP ;
+		return Direction.DOWN ;
+		}
+
+	private boolean isElevatorMoving() {
+			return getCurrentDirection() != Direction.IDLE;
 			}
-		}
-	}
-	public void approaching(Floor flr) {
-		// elevatorMotor, elevatorDoor, floorDoors should not be null
-		System.out.println("\nApproaching " + flr + "th floor") ;
-		setCurFlr(flr) ;
-		
-		boolean needToStop;
-		if ( k == 0 )
-			needToStop = true;
-		else
-			needToStop = getFloorstobeVisited().contains(flr);
-			
-		if ( needToStop ) {
-			elevatorManager.stop() ;
-			setCurDir(Direction.STOP);
-			
-			// open doors
-			elevatorDoor.open() ;
-			floorDoors.get(getCurFlrtoInt()).open() ;
-			if ( doorTimer != null ) doorTimer.start() ;
-			
-			floorstobeVisited.remove(flr) ;
-		}
-	}
-	public void doorTimeout() {
-		// elevatorMotor, elevatorDoor, floorDoors should not be null
 
-		Direction nxtDir;
-		if ( floorstobeVisited.isEmpty() ) nxtDir = Direction.STOP;
-		
-		final Floor dst = floorstobeVisited.get(0) ;
-		if ( dst.isHigherThan(curFlr) ) nxtDir = Direction.UP ;
-		else nxtDir =  Direction.DOWN ;
-		
-		elevatorDoor.close() ;
-		floorDoors.get(getCurFlrtoInt()).close() ;
-		if ( doorTimer != null ) doorTimer.stop() ;
-		
-		if ( nxtDir != Direction.STOP ) {
-			elevatorManager.move(getCurFlr(), nxtDir) ;
-			setCurDir(nxtDir);
+	@Override
+	public void attach(DisplayObserver observer) {
+		displayObservers.add(observer);
+	}
+
+	@Override
+	public void detach(DisplayObserver observer) {
+		displayObservers.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (DisplayObserver observer : displayObservers) {
+			observer.update();
 		}
 	}
+
+	//version 1
+	private void stopElevator() {
+	 		// introduce assertion
+	 		assert elevatorMotor != null;
+	 		elevatorMotor.stop() ;
+	 		setCurrentDirection(Direction.IDLE);
+	}
+
+	// private void doOpenDoor() {
+	// 		// introduce assertion
+	// 		assert elevatorDoor != null;
+	// 		elevatorDoor.open() ;
+	// 		openFloorDoor() ;
+	// 		if ( hasDoorTimer() ) doorTimer.start();
+	// 		}
+
+	// private void openFloorDoor() {
+	// 		// introduce assertion
+	// 		assert floorDoors.get(getCurrentFloor().getFloor()) != null;
+	// 		floorDoors.get(getCurrentFloor().getFloor()).open();
+	// 		}
+
+	private void moveElevator(Direction nextDirection) {
+		// introduce assertion
+		assert elevatorMotor != null;
+		elevatorMotor.move(getCurrentFloor(), nextDirection) ;
+		setCurrentDirection(nextDirection);
+		}
+
+	public void approaching(Floor floor) {
+		doApproaching(floor) ;
+
+		if ( ! needToStop(floor) ) return;
+
+		stopElevator();
+		openDoor();
+		
+		removeDestination(floor) ;
+	}
+
+	private void doApproaching(Floor floor) {
+		System.out.println("\nApproaching " + floor + "th floor") ;
+		setCurrentFloor(floor) ;
+	}
+
+	private boolean needToStop(Floor floor) {
+		boolean needToStop;
+		if ( kind == ElevatorControllerKind.EveryFloorStop ) needToStop = true;
+		else needToStop = getFloorstobeVisited().contains(floor);
+		return needToStop;
+	}
+	
+	private boolean removeDestination(Floor floor) {
+		return floorstobeVisited.remove(floor);
+	}
+	
+	public void doorTimeout() {
+		closeDoor();
+		if ( hasNextDestination() )
+			moveElevator(determineMovingDirection());
+		}
+		
 	public void openDoor() {
 		// elevatorDoor, floorDoors should not be null
+		if (elevatorDoor == null || floorDoors == null || floorDoors.isEmpty()) return;
 
-		if ( getCurDir() == Direction.STOP  ) {
+		if ( getCurrentDirection() == Direction.IDLE  ) {
 			// open doors
 			elevatorDoor.open() ;
-			floorDoors.get(getCurFlrtoInt()).open() ;
+			floorDoors.get(getCurrentFloorToInt()).open() ;
 			if ( doorTimer != null ) doorTimer.start() ;
 		}
 	}
 	public void closeDoor() {
 		// elevatorDoor, floorDoors should not be null
-		if ( getCurDir() == Direction.STOP ) {
+		if ( getCurrentDirection() == Direction.IDLE ) {
 			// closeDoor
 			elevatorDoor.close() ;
-			floorDoors.get(getCurFlrtoInt()).close() ;
+			floorDoors.get(getCurrentFloorToInt()).close() ;
 			if ( doorTimer != null ) doorTimer.stop() ;
 		}
 	}
 	public List<Floor> getFloorstobeVisited() {
 		return floorstobeVisited;
 	}
-	public DoorStatus getDrSts(Floor floor) {
+	public DoorStatus getDoorStatus(Floor floor) {
 		// elevatorDoor, floorDoors should not be null
 		
 		DoorStatus elevatorDoorState = elevatorDoor.getDoorStatus();
-		DoorStatus floorDS = floorDoors.get(getCurFlrtoInt()).getDoorStatus();
+		DoorStatus floorDS = floorDoors.get(getCurrentFloorToInt()).getDoorStatus();
 		
-		DoorStatus DS = DoorStatus.OPEN;
+		DoorStatus doorStatus = DoorStatus.OPEN;
 		if ( elevatorDoorState == DoorStatus.CLOSED && floorDS == DoorStatus.CLOSED )
-			DS = DoorStatus.CLOSED;
+			doorStatus = DoorStatus.CLOSED;
 		
-		return DS;
+		return doorStatus;
 	}
-	public Floor getCurFlr() {
-		return curFlr ;
+	public Floor getCurrentFloor() {
+		return currentFloor;
 	}
-	public int getCurFlrtoInt() {
-		return curFlr.getValue() ;
+	public int getCurrentFloorToInt() {
+		return currentFloor.getValue() ;
 	}
 
 
-	public void setCurFlr(Floor curFlr) {
-		this.curFlr = curFlr;
+	public void setCurrentFloor(Floor currentFloor) {
+		this.currentFloor = currentFloor;
 		
-		controlRoomDisplay.update();
-		elevatorInsideDisplay.update();
-		abstractFloorDisplay.update();
+		notifyObservers();
 	}
-	public Direction getCurDir() {
-		return curDir;
+	public Direction getCurrentDirection() {
+		return currentDirection;
 	}
-	public void setCurDir(Direction curDir) {
-		this.curDir = curDir;
+	public void setCurrentDirection(Direction currentDirection) {
+		this.currentDirection = currentDirection;
 		
-		controlRoomDisplay.update();
-		elevatorInsideDisplay.update();
-		abstractFloorDisplay.update();
-	}
-	public ControlRoomDisplay getControlRoomDisplay() {
-		return controlRoomDisplay;
-	}
-	public void setControlRoomDisplay(ControlRoomDisplay controlRoomDisplay) {
-		this.controlRoomDisplay = controlRoomDisplay;
-	}
-	public ElevatorInsideDisplay getElevatorInsideDisplay() {
-		return elevatorInsideDisplay;
-	}
-	public void setElevatorInsideDisplay(ElevatorInsideDisplay elevatorInsideDisplay) {
-		this.elevatorInsideDisplay = elevatorInsideDisplay;
-	}
-	public AbstractFloorDisplay getAbstractFloorDisplay() {
-		return abstractFloorDisplay;
-	}
-	public void setAbstractFloorDisplay(AbstractFloorDisplay abstractFloorDisplay) {
-		this.abstractFloorDisplay = abstractFloorDisplay;
+		notifyObservers();
 	}
 }

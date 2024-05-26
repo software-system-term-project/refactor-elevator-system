@@ -1,10 +1,10 @@
 
-public class ElevatorManager {
+public class ElevatorMotor {
 	private ElevatorController elevatorController ;
 	private MotorStatus motorStatus ;
 	private DeviceVendor motorVendor;
 	
-	public ElevatorManager(DeviceVendor motorVendor) {
+	public ElevatorMotor(DeviceVendor motorVendor) {
 		this.motorVendor = motorVendor;
 		motorStatus = MotorStatus.STOPPED ;
 	}
@@ -22,7 +22,7 @@ public class ElevatorManager {
 		if (  getMotorStatus() == MotorStatus.MOVING ) return ;
 		
 		assert elevatorController != null;
-		DoorStatus doorStatus = elevatorController.getDrSts(currentFloor) ;
+		DoorStatus doorStatus = elevatorController.getDoorStatus(currentFloor) ;
 		if ( doorStatus == DoorStatus.OPEN )
 			return;
 		

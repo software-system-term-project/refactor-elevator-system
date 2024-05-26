@@ -7,11 +7,11 @@ class SimpleElevatorManager {
 		this.controllers = controllers;
 	}	
 
-	public void requestElevator(Floor destination, Direction dir) {
+	public void requestElevator(Floor destination, Direction direction) {
 		int sel;
 		// 0..23
-		int hr = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
-		if ( hr < 12 ) { // ����; Response Time Scheduler
+		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
+		if ( hour < 12 ) { // ����; Response Time Scheduler
 			sel = controllers.size() -1;
 			System.out.println("ResponseTimeScheduler selects " + sel);
 		}
@@ -42,8 +42,8 @@ class SimpleElevatorManager {
 		}
 	}
 	private void print(ElevatorController controller) {
-		System.out.println(controller.getCurFlr());
-		System.out.println(controller.getCurDir());
+		System.out.println(controller.getCurrentFloor());
+		System.out.println(controller.getCurrentDirection());
 		System.out.println(controller.getFloorstobeVisited());
 	}
 }
