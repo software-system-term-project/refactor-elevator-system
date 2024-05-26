@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-class ElevatorController {
+class ElevatorController implements DisplaySubject {
 	private ElevatorControllerKind kind; // 0: every floor stop, 1: demand only stop
 
 	private ElevatorMotor elevatorMotor;
@@ -13,10 +11,8 @@ class ElevatorController {
 	private List<Floor> floorstobeVisited = new ArrayList<>();
 	private Floor currentFloor = new Floor(1);
 	private Direction currentDirection = Direction.IDLE;
-	
-	private ControlRoomDisplay controlRoomDisplay;
-	private ElevatorInsideDisplay elevatorInsideDisplay;
-	private AbstractFloorDisplay abstractFloorDisplay;
+
+	private List<DisplayObserver> displayObservers;
 	
 	public ElevatorController(ElevatorControllerKind kind, ElevatorMotor elevatorMotor,
 							  ElevatorDoor elevatorDoor, List<FloorDoor> floorDoors,
@@ -76,7 +72,25 @@ class ElevatorController {
 	private boolean isElevatorMoving() {
 			return getCurrentDirection() != Direction.IDLE;
 			}
-//version 1
+
+	@Override
+	public void attach(DisplayObserver observer) {
+		displayObservers.add(observer);
+	}
+
+	@Override
+	public void detach(DisplayObserver observer) {
+		displayObservers.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (DisplayObserver observer : displayObservers) {
+			observer.update();
+		}
+	}
+
+	//version 1
 	// private void stopElevator() {
 	// 		// introduce assertion
 	// 		assert elevatorMotor != null;
@@ -136,6 +150,7 @@ class ElevatorController {
 		
 	public void openDoor() {
 		// elevatorDoor, floorDoors should not be null
+		if (elevatorDoor == null || floorDoors == null || floorDoors.isEmpty()) return;
 
 		if ( getCurrentDirection() == Direction.IDLE  ) {
 			// open doors
@@ -179,9 +194,7 @@ class ElevatorController {
 	public void setCurrentFloor(Floor currentFloor) {
 		this.currentFloor = currentFloor;
 		
-		controlRoomDisplay.update();
-		elevatorInsideDisplay.update();
-		abstractFloorDisplay.update();
+		notifyObservers();
 	}
 	public Direction getCurrentDirection() {
 		return currentDirection;
@@ -189,26 +202,6 @@ class ElevatorController {
 	public void setCurrentDirection(Direction currentDirection) {
 		this.currentDirection = currentDirection;
 		
-		controlRoomDisplay.update();
-		elevatorInsideDisplay.update();
-		abstractFloorDisplay.update();
-	}
-	public ControlRoomDisplay getControlRoomDisplay() {
-		return controlRoomDisplay;
-	}
-	public void setControlRoomDisplay(ControlRoomDisplay controlRoomDisplay) {
-		this.controlRoomDisplay = controlRoomDisplay;
-	}
-	public ElevatorInsideDisplay getElevatorInsideDisplay() {
-		return elevatorInsideDisplay;
-	}
-	public void setElevatorInsideDisplay(ElevatorInsideDisplay elevatorInsideDisplay) {
-		this.elevatorInsideDisplay = elevatorInsideDisplay;
-	}
-	public AbstractFloorDisplay getAbstractFloorDisplay() {
-		return abstractFloorDisplay;
-	}
-	public void setAbstractFloorDisplay(AbstractFloorDisplay abstractFloorDisplay) {
-		this.abstractFloorDisplay = abstractFloorDisplay;
+		notifyObservers();
 	}
 }
