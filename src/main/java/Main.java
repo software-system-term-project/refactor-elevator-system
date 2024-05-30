@@ -25,45 +25,63 @@ public class Main {
 		List<ElevatorController> elevatorControllers = new ArrayList<>();
 		
 		// Devices for Elevator 1
-		ElevatorMotor elevatorMotor1 = new ElevatorMotor(DeviceVendor.SAMSUNG);
-		DoorTimer doorTimer1 = new DoorTimer();
-			
-		ElevatorDoor elevatorDoor1 = new ElevatorDoor(DeviceVendor.SAMSUNG);
-		List<FloorDoor> floorDoors1 = createFloorDoors(floorCount, DeviceVendor.SAMSUNG);
-		
-		// every floor stop
-		DoorController doorController1 =
-				new DoorController(elevatorDoor1, floorDoors1, doorTimer1) ;
-		ElevatorController elevatorController1 = new ElevatorController(ElevatorControllerKind.EveryFloorStop,
-				elevatorMotor1, doorController1);
-		doorTimer1.setDoorTimeout(elevatorController1);
-		elevatorMotor1.setElevatorController(elevatorController1);
+		elevatorControllers.add(createFirstElevator(floorCount));
 
-		ControlRoomDisplay controlRoomDisplay = new ControlRoomDisplay(elevatorController1);
-		elevatorController1.attach(controlRoomDisplay);
-		ElevatorInsideDisplay elevatorInsideDisplay = new ElevatorInsideDisplay(elevatorController1);
-		elevatorController1.attach(elevatorInsideDisplay);
-
-		elevatorControllers.add(elevatorController1);
-		
 		// Devices for Elevator 2
+		elevatorControllers.add(createSecondElevator(floorCount));
+
+		return elevatorControllers;
+	}
+
+	private static ElevatorController createSecondElevator(int floorCount) {
+		ElevatorController elevatorController = HyundaiElevatorControllerFactory
+				.getInstance()
+				.createElevatorController();
+
+		/*
 		ElevatorMotor elevatorMotor2 = new ElevatorMotor(DeviceVendor.HYUNDAI);
 		ElevatorDoor elevatorDoor2 = new ElevatorDoor(DeviceVendor.HYUNDAI);
 		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.HYUNDAI);
-		
+
 		// demand only stop
 		DoorController doorController2 =
 				new DoorController(elevatorDoor2, floorDoors2, null) ;
 		ElevatorController elevatorController2 = new ElevatorController(ElevatorControllerKind.DemandOnly,
 					elevatorMotor2, doorController2);
 		elevatorMotor2.setElevatorController(elevatorController2);
+		 */
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
-		AdvancedFloorDisplay advancedFloorDisplay = new AdvancedFloorDisplay(elevatorController2, imp);
-		elevatorController2.attach(advancedFloorDisplay);
-		
-		elevatorControllers.add(elevatorController2);
-		return elevatorControllers;
+		AdvancedFloorDisplay advancedFloorDisplay = new AdvancedFloorDisplay(elevatorController, imp);
+		elevatorController.attach(advancedFloorDisplay);
+		return elevatorController;
+	}
+
+	private static ElevatorController createFirstElevator(int floorCount) {
+		ElevatorController elevatorController = SamsungElevatorControllerFactory
+				.getInstance()
+				.createElevatorController();
+
+		/*
+		ElevatorMotor elevatorMotor1 = new ElevatorMotor(DeviceVendor.SAMSUNG);
+		DoorTimer doorTimer = new DoorTimer();
+
+		ElevatorDoor elevatorDoor = new ElevatorDoor(DeviceVendor.SAMSUNG);
+		List<FloorDoor> floorDoors = createFloorDoors(floorCount, DeviceVendor.SAMSUNG);
+
+		// every floor stop
+		DoorController doorController =
+				new DoorController(elevatorDoor, floorDoors, doorTimer) ;
+		ElevatorController elevatorController = new ElevatorController(ElevatorControllerKind.EveryFloorStop,
+				elevatorMotor1, doorController);
+		doorTimer.setDoorTimeout(elevatorController);
+		elevatorMotor1.setElevatorController(elevatorController);
+		 */
+
+		elevatorController.attach(new ControlRoomDisplay(elevatorController));
+		elevatorController.attach(new ElevatorInsideDisplay(elevatorController));
+
+		return elevatorController;
 	}
 
 	private static List<FloorDoor> createFloorDoors(int floorCount, DeviceVendor vendor) {
