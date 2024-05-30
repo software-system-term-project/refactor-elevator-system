@@ -158,7 +158,7 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 		return floorstobeVisited;
 	}
 	public DoorStatus getDoorStatus(Floor floor) {
-		return DoorController.getDoorStatus(floor);
+		return doorController.getDoorStatus(floor);
 	}
 	public Floor getCurrentFloor() {
 		return currentFloor;
