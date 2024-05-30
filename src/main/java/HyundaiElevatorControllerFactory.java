@@ -21,7 +21,7 @@ public class HyundaiElevatorControllerFactory extends AbstractElevatorController
     }
 
     @Override
-    List<FloorDoor> createFloorDoors() {
+    List<FloorDoor> createFloorDoors(int floorCount) {
         return null;
     }
 

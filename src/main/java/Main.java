@@ -36,9 +36,9 @@ public class Main {
 	private static ElevatorController createSecondElevator(int floorCount) {
 		ElevatorController elevatorController = HyundaiElevatorControllerFactory
 				.getInstance()
-				.createElevatorController();
+				.createElevatorController(floorCount);
 
-		/*
+		/* 아래 코드를 참고하여 HyundaiElevatorControllerFactory 구현
 		ElevatorMotor elevatorMotor2 = new ElevatorMotor(DeviceVendor.HYUNDAI);
 		ElevatorDoor elevatorDoor2 = new ElevatorDoor(DeviceVendor.HYUNDAI);
 		List<FloorDoor> floorDoors2 = createFloorDoors(floorCount, DeviceVendor.HYUNDAI);
@@ -52,17 +52,16 @@ public class Main {
 		 */
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
-		AdvancedFloorDisplay advancedFloorDisplay = new AdvancedFloorDisplay(elevatorController, imp);
-		elevatorController.attach(advancedFloorDisplay);
+		elevatorController.attach(new AdvancedFloorDisplay(elevatorController, imp));
 		return elevatorController;
 	}
 
 	private static ElevatorController createFirstElevator(int floorCount) {
 		ElevatorController elevatorController = SamsungElevatorControllerFactory
 				.getInstance()
-				.createElevatorController();
+				.createElevatorController(floorCount);
 
-		/*
+		/* 아래 코드를 참고하여 SamsungElevatorControllerFactory 구현
 		ElevatorMotor elevatorMotor1 = new ElevatorMotor(DeviceVendor.SAMSUNG);
 		DoorTimer doorTimer = new DoorTimer();
 
