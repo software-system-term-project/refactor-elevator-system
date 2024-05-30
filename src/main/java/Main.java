@@ -11,13 +11,14 @@ public class Main {
 		
 		SimpleElevatorManager simpleElevatorManager = new SimpleElevatorManager(elevatorControllers);
 		
-		List<ElevatorRequest> requestButtons = new ArrayList<>();
+		List<Button> requestButtons = new ArrayList<>();
 		for ( int i = 0; i < floorCount; i ++ ) {
 			Floor floor = new Floor(i + 1);
-			ElevatorRequest requestButton = new ElevatorRequest(floor,simpleElevatorManager);
-			requestButtons.add(requestButton);
+
+			requestButtons.add(new Button(new MoveDownCommand(simpleElevatorManager, floor)));
+			requestButtons.add(new Button(new MoveUpCommand(simpleElevatorManager, floor)));
 		}
-		requestButtons.get(0).down();
+		requestButtons.get(0).pressed();
 	}
 
 	private static List<ElevatorController> createElevatorControllers(int floorCount) {
