@@ -1,12 +1,11 @@
 
 public class FloorDoor {
-	private DeviceVendor vendor;
 	private Floor floor ;
 
 	private FloorDoorController floorDoorController;
 
 	public FloorDoor(DeviceVendor vendor, Floor floor) {
-		this.vendor = vendor;
+		
 		this.floor = floor;
 
 		switch (vendor) {

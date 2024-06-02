@@ -1,26 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//구현 필요
-public class SamsungElevatorControllerFactory extends AbstractElevatorControllerFactory {
-    private static SamsungElevatorControllerFactory instance;
+public class LGElevatorControllerFactory extends AbstractElevatorControllerFactory {
+    private static LGElevatorControllerFactory instance;
 
-    private SamsungElevatorControllerFactory() {}
+    private LGElevatorControllerFactory() {}
 
-    public static SamsungElevatorControllerFactory getInstance() {
-        if (instance == null) instance = new SamsungElevatorControllerFactory();
+    public static LGElevatorControllerFactory getInstance() {
+        if (instance == null) instance = new LGElevatorControllerFactory();
         return instance;
-
     }
 
     @Override
     ElevatorMotor createElevatorMotor() {
-        return new ElevatorMotorSamsung();
+        return new ElevatorMotorLG();
     }
 
     @Override
     ElevatorDoor createElevatorDoor() {
-        return new ElevatorDoor(DeviceVendor.SAMSUNG);
+        return new ElevatorDoor(DeviceVendor.LG);
     }
 
     @Override
@@ -29,9 +27,9 @@ public class SamsungElevatorControllerFactory extends AbstractElevatorController
         
         for(int i=0;i<floorCount;i++)
         {
-            floorDoors.add(new FloorDoor(DeviceVendor.SAMSUNG, new Floor(i)));
+            floorDoors.add(new FloorDoor(DeviceVendor.LG, new Floor(i)));
         }
-
+        
         return floorDoors;
     }
 
