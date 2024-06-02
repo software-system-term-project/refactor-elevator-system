@@ -1,8 +1,8 @@
 
-public class ElevatorDoorControllerHyundai extends ElevatorDoorController {
+public class ElevatorDoorHyundai extends ElevatorDoor {
 
-	public ElevatorDoorControllerHyundai(DeviceVendor vendor) {
-		super(vendor);
+	public ElevatorDoorHyundai() {
+		super();
 	}
 
 	public void open() 

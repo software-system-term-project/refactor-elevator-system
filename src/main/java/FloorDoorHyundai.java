@@ -1,8 +1,8 @@
-public class FloorDoorControllerHyundai extends FloorDoorController {
+public class FloorDoorHyundai extends FloorDoor {
 
 	private boolean doorOpenedHyundai;
 
-	public FloorDoorControllerHyundai(DeviceVendor vendor, Floor floor)
+	public FloorDoorHyundai(DeviceVendor vendor, Floor floor)
 	{
 		super(vendor, floor);
 		doorOpenedHyundai = false;

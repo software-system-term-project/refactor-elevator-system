@@ -1,8 +1,8 @@
-public class FloorDoorControllerLG extends FloorDoorController {
+public class FloorDoorLG extends FloorDoor {
 
 	private int doorOpenedLG;
 
-	public FloorDoorControllerLG(DeviceVendor vendor, Floor floor)
+	public FloorDoorLG(DeviceVendor vendor, Floor floor)
 	{
 		super(vendor, floor);
 		doorOpenedLG = 0;

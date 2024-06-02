@@ -1,8 +1,8 @@
 
-public class ElevatorDoorControllerSamsung extends ElevatorDoorController {
+public class ElevatorDoorSamsung extends ElevatorDoor {
 
-	public ElevatorDoorControllerSamsung(DeviceVendor vendor) {
-		super(vendor);
+	public ElevatorDoorSamsung() {
+		super();
 	}
 
 	public void open() 

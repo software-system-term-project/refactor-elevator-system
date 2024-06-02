@@ -19,7 +19,7 @@ public class HyundaiElevatorControllerFactory extends AbstractElevatorController
 
     @Override
     ElevatorDoor createElevatorDoor() {
-        return new ElevatorDoor(DeviceVendor.HYUNDAI);
+        return new ElevatorDoorHyundai();
     }
 
     @Override
@@ -41,6 +41,6 @@ public class HyundaiElevatorControllerFactory extends AbstractElevatorController
 
     @Override
     ElevatorControllerKind setElevatorControllerKind() {
-        return ElevatorControllerKind.EveryFloorStop;
+        return ElevatorControllerKind.DemandOnly;
     }
 }

@@ -1,9 +1,9 @@
 
-public class ElevatorDoorControllerLG extends ElevatorDoorController {
+public class ElevatorDoorLG extends ElevatorDoor {
 
 
-	public ElevatorDoorControllerLG(DeviceVendor vendor) {
-		super(vendor);
+	public ElevatorDoorLG() {
+		super();
 	}
 
 	public void open() 

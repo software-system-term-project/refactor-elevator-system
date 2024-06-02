@@ -20,7 +20,7 @@ public class SamsungElevatorControllerFactory extends AbstractElevatorController
 
     @Override
     ElevatorDoor createElevatorDoor() {
-        return new ElevatorDoor(DeviceVendor.SAMSUNG);
+        return new ElevatorDoorSamsung();
     }
 
     @Override
