@@ -1,30 +1,24 @@
 
 public class ElevatorDoor {
-	private DeviceVendor vendor;
-	private ElevatorDoorController elevatorDoorController;
+	
+protected DoorStatus elevatorDoorStatus;
 
-	public ElevatorDoor(DeviceVendor vendor) {
-		this.vendor = vendor;
-		switch (vendor) 
-		{
-			case SAMSUNG:
-				elevatorDoorController = new ElevatorDoorControllerSamsung(vendor);
-				break;	
-			case LG:
-				elevatorDoorController = new ElevatorDoorControllerLG(vendor);
-				break;
-			case HYUNDAI:
-				elevatorDoorController = new ElevatorDoorControllerHyundai(vendor);
-				break;
-		}
+	public ElevatorDoor() 
+	{
+		elevatorDoorStatus = DoorStatus.CLOSED;
 	}
+
 	public DoorStatus getDoorStatus() {
-		return elevatorDoorController.getDoorStatus();
+		DoorStatus status = null;
+		status = elevatorDoorStatus.equals(DoorStatus.CLOSED) ? DoorStatus.CLOSED : DoorStatus.OPEN;
+		return status;
 	}
-	public void open() {
-		elevatorDoorController.open();
+
+	public void open() 
+	{
 	}
-	public void close() {
-		elevatorDoorController.close();
+
+	public void close() 
+	{
 	}
 }
