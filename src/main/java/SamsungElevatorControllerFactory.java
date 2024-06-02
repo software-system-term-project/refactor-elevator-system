@@ -29,7 +29,7 @@ public class SamsungElevatorControllerFactory extends AbstractElevatorController
         
         for(int i=0;i<floorCount;i++)
         {
-            floorDoors.add(new FloorDoor(DeviceVendor.SAMSUNG, new Floor(i)));
+            floorDoors.add(new FloorDoorSamsung(new Floor(i)));
         }
 
         return floorDoors;

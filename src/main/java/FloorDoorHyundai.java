@@ -2,9 +2,9 @@ public class FloorDoorHyundai extends FloorDoor {
 
 	private boolean doorOpenedHyundai;
 
-	public FloorDoorHyundai(DeviceVendor vendor, Floor floor)
+	public FloorDoorHyundai(Floor floor)
 	{
-		super(vendor, floor);
+		super(floor);
 		doorOpenedHyundai = false;
 	}
 

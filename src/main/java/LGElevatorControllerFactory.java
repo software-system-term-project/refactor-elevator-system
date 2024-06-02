@@ -18,7 +18,7 @@ public class LGElevatorControllerFactory extends AbstractElevatorControllerFacto
 
     @Override
     ElevatorDoor createElevatorDoor() {
-        return new ElevatorDoor(DeviceVendor.LG);
+        return new ElevatorDoorLG();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class LGElevatorControllerFactory extends AbstractElevatorControllerFacto
         
         for(int i=0;i<floorCount;i++)
         {
-            floorDoors.add(new FloorDoor(DeviceVendor.LG, new Floor(i)));
+            floorDoors.add(new FloorDoorLG(new Floor(i)));
         }
         
         return floorDoors;

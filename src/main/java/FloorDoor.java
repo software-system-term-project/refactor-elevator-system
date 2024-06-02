@@ -4,7 +4,7 @@ public class FloorDoor {
 	protected DoorStatus doorStatus;
 	
 
-	public FloorDoor(DeviceVendor vendor, Floor floor) {
+	public FloorDoor(Floor floor) {
 		this.floor = floor;
 		doorStatus = DoorStatus.CLOSED;
 	}
@@ -22,6 +22,6 @@ public class FloorDoor {
 		status = (doorStatus == DoorStatus.OPEN) ? DoorStatus.OPEN : DoorStatus.CLOSED;
 		return status;
 	}
-	
+
 	public Floor getFloor() { return floor; }
 }

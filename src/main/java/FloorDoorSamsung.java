@@ -2,9 +2,9 @@ public class FloorDoorSamsung extends FloorDoor {
 
 	private char doorOpenedSamsung;
 
-	public FloorDoorSamsung(DeviceVendor vendor, Floor floor)
+	public FloorDoorSamsung(Floor floor)
 	{
-		super(vendor, floor);
+		super(floor);
 		doorOpenedSamsung = 'X';
 	}
 
