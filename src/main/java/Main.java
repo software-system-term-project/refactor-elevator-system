@@ -1,15 +1,25 @@
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
 		
 		int floorCount = 5;
+		ElevatorScheduler scheduler = null;
+
+		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
+		if ( hour < 12 ) {
+			scheduler = new ResponseTimeScheduler();
+		}
+		else {
+			scheduler = new ThroughputScheduler();
+		}
 		
 		List<ElevatorController> elevatorControllers = createElevatorControllers(floorCount);
 		
-		SimpleElevatorManager simpleElevatorManager = new SimpleElevatorManager(elevatorControllers);
+		SimpleElevatorManager simpleElevatorManager = new SimpleElevatorManager(elevatorControllers, scheduler);
 		
 		List<Button> requestButtons = new ArrayList<>();
 		for ( int i = 0; i < floorCount; i ++ ) {

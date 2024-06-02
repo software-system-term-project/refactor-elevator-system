@@ -2,24 +2,16 @@ import java.util.Calendar;
 import java.util.List;
 class SimpleElevatorManager {
 	private List<ElevatorController> controllers;
+	private ElevatorScheduler scheduler;
 
-	public SimpleElevatorManager(List<ElevatorController> controllers) {
+	public SimpleElevatorManager(List<ElevatorController> controllers, ElevatorScheduler scheduler) {
 		this.controllers = controllers;
+		this.scheduler = scheduler;
 	}	
 
 	public void requestElevator(Floor destination, Direction direction) {
-		int sel;
-		// 0..23
-		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
-		if ( hour < 12 ) { // ����; Response Time Scheduler
-			sel = controllers.size() -1;
-			System.out.println("ResponseTimeScheduler selects " + sel);
-		}
-		else { // ����; Throughput Scheduler
-			sel = 0;
-			System.out.println("ThroughputScheduler selects " + sel);
-		}
-		controllers.get(sel).goTo(destination) ;
+		int selectedElevator = scheduler.selectElevator(controllers, destination, direction);
+		controllers.get(selectedElevator).goTo(destination) ;
 	}
 	public void emergencyStop(boolean goTo1stFloor) {
 		for ( ElevatorController controller: controllers)
