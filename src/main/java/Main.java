@@ -7,15 +7,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 		int floorCount = 5;
-		ElevatorScheduler scheduler;
-
-		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
-		if ( hour < 12 ) {
-			scheduler = new ResponseTimeScheduler();
-		}
-		else {
-			scheduler = new ThroughputScheduler();
-		}
+		ElevatorScheduler scheduler = SchedulerFactory
+				.getInstance()
+				.createScheduler();
 		
 		List<ElevatorController> elevatorControllers = createElevatorControllers(floorCount);
 		
