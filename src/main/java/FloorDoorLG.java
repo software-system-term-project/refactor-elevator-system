@@ -2,9 +2,9 @@ public class FloorDoorLG extends FloorDoor {
 
 	private int doorOpenedLG;
 
-	public FloorDoorLG(DeviceVendor vendor, Floor floor)
+	public FloorDoorLG(Floor floor)
 	{
-		super(vendor, floor);
+		super(floor);
 		doorOpenedLG = 0;
 	}
 

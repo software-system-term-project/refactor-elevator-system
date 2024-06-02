@@ -28,7 +28,7 @@ public class HyundaiElevatorControllerFactory extends AbstractElevatorController
         
         for(int i=0;i<floorCount;i++)
         {
-            floorDoors.add(new FloorDoor(DeviceVendor.HYUNDAI, new Floor(i)));
+            floorDoors.add(new FloorDoorHyundai(new Floor(i)));
         }
         
         return floorDoors;
