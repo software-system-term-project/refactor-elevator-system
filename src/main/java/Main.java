@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		int floorCount = 5;
-		ElevatorScheduler scheduler = null;
+		ElevatorScheduler scheduler;
 
 		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
 		if ( hour < 12 ) {
