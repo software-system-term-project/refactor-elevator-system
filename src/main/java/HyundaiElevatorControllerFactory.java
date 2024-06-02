@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class HyundaiElevatorControllerFactory extends AbstractElevatorControllerFactory {
@@ -8,30 +9,38 @@ public class HyundaiElevatorControllerFactory extends AbstractElevatorController
     public static HyundaiElevatorControllerFactory getInstance() {
         if (instance == null) instance = new HyundaiElevatorControllerFactory();
         return instance;
+
     }
 
     @Override
     ElevatorMotor createElevatorMotor() {
-        return null;
+        return new ElevatorMotorHyundai();
     }
 
     @Override
     ElevatorDoor createElevatorDoor() {
-        return null;
+        return new ElevatorDoor(DeviceVendor.HYUNDAI);
     }
 
     @Override
     List<FloorDoor> createFloorDoors(int floorCount) {
-        return null;
+        List<FloorDoor> floorDoors = new ArrayList<FloorDoor>();
+        
+        for(int i=0;i<floorCount;i++)
+        {
+            floorDoors.add(new FloorDoor(DeviceVendor.HYUNDAI, new Floor(i)));
+        }
+        
+        return floorDoors;
     }
 
     @Override
     DoorTimer createDoorTimer() {
-        return null;
+        return new DoorTimer();
     }
 
     @Override
     ElevatorControllerKind setElevatorControllerKind() {
-        return null;
+        return ElevatorControllerKind.EveryFloorStop;
     }
 }
