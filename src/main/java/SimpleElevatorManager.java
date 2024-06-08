@@ -1,10 +1,13 @@
 import java.util.List;
 
 class SimpleElevatorManager {
-	private List<ElevatorController> controllers;
-	private ElevatorScheduler scheduler;
+	private final List<ElevatorController> controllers;
+	private final ElevatorScheduler scheduler;
 
 	public SimpleElevatorManager(List<ElevatorController> controllers, ElevatorScheduler scheduler) {
+		if (controllers == null || controllers.isEmpty() || scheduler == null)
+			throw new IllegalArgumentException("ElevatorManager 생성에 필요한 부품이 없습니다!");
+
 		this.controllers = controllers;
 		this.scheduler = scheduler;
 	}	
@@ -16,15 +19,15 @@ class SimpleElevatorManager {
 	public void emergencyStop(boolean goTo1stFloor) {
 		for ( ElevatorController controller: controllers)
 			if ( goTo1stFloor ) {
-				controller.getFloorstobeVisited().clear();
+				controller.getFloorsToBeVisited().clear();
 				controller.goTo(new Floor(1));
 			}
 			else
 				controller.stop();
 	}
-	public boolean isToBeVisistedFloor(Floor floor) {
+	public boolean isToBeVisitedFloor(Floor floor) {
 		for ( ElevatorController controller: controllers) {
-			if ( controller.getFloorstobeVisited().contains(floor) ) return true;
+			if ( controller.getFloorsToBeVisited().contains(floor) ) return true;
 		}
 		return false;
 	}
@@ -36,6 +39,6 @@ class SimpleElevatorManager {
 	private void print(ElevatorController controller) {
 		System.out.println(controller.getCurrentFloor());
 		System.out.println(controller.getCurrentDirection());
-		System.out.println(controller.getFloorstobeVisited());
+		System.out.println(controller.getFloorsToBeVisited());
 	}
 }

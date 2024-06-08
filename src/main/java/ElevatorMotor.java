@@ -17,7 +17,7 @@ public abstract class ElevatorMotor {
 		if (  getMotorStatus() == MotorStatus.MOVING ) return ;
 
 		assert elevatorController != null;
-		if ( elevatorController.getDoorStatus(currentFloor)  == DoorStatus.OPEN ) return;
+		if ( elevatorController.isOpenedAt(currentFloor) ) return;
 		setMotorStatus(MotorStatus.MOVING) ;
 	}
 

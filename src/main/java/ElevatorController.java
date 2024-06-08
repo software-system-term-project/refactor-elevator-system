@@ -2,26 +2,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ElevatorController implements DisplaySubject, IDoorTimeout {
-	private ElevatorControllerKind kind; // 0: every floor stop, 1: demand only stop
+	private final ElevatorControllerKind kind; // 0: every floor stop, 1: demand only stop
 
-	private ElevatorMotor elevatorMotor;
-//	private ElevatorDoor elevatorDoor;
-//	private List<FloorDoor> floorDoors;
-//	private DoorTimer doorTimer;
-	private DoorController doorController ;
-	private List<Floor> floorstobeVisited = new ArrayList<>();
+	private final ElevatorMotor elevatorMotor;
+	private final DoorController doorController ;
+	private List<Floor> floorsToBeVisited = new ArrayList<>();
 	private Floor currentFloor = new Floor(1);
 	private Direction currentDirection = Direction.IDLE;
 
-	private List<DisplayObserver> displayObservers;
+	private List<DisplayObserver> displayObservers = new ArrayList<>();
 	
 	public ElevatorController(ElevatorControllerKind kind, ElevatorMotor elevatorMotor,
 							  DoorController doorController) {
+		if (kind == null || elevatorMotor == null || doorController == null)
+			throw new IllegalArgumentException("Controller 생성에 필요한 부품이 없습니다!");
+
 		this.kind = kind;
 		this.elevatorMotor = elevatorMotor;
-//		this.elevatorDoor = elevatorDoor;
-//		this.floorDoors = floorDoors;
-//		this.doorTimer = doorTimer;
 		this.doorController = doorController;
 	}
 	public void stop() {
@@ -34,11 +31,10 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 		openDoor();
 	}
 	public void goTo(Floor destination) {
-		// elevatorMotor should not be null
-		if ( isNewDestination(destination) )
-			addDestination(destination) ;
+		if (isNewDestination(destination))
+			addDestination(destination);
 		
-		if ( isElevatorMoving() ) return; 
+		if (isElevatorMoving()) return;
 			
 		if ( hasNextDestination() ) {
 			moveElevator(determineMovingDirection());
@@ -47,11 +43,11 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 	}
 
 	private boolean isNewDestination(Floor destination) {
-		return ! floorstobeVisited.contains(destination);
+		return ! floorsToBeVisited.contains(destination);
 		}
 
 	private boolean addDestination(Floor destination) {
-		return floorstobeVisited.add(destination);
+		return floorsToBeVisited.add(destination);
 		}
 
 	private boolean hasNextDestination() {
@@ -60,9 +56,9 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 
 	private Direction determineMovingDirection() {
 		// introduce explaining variable
-		final boolean noMoreDestinationFloors = floorstobeVisited.isEmpty();
+		final boolean noMoreDestinationFloors = floorsToBeVisited.isEmpty();
 		if ( noMoreDestinationFloors ) return Direction.IDLE ;
-		final Floor destination = floorstobeVisited.get(0) ;
+		final Floor destination = floorsToBeVisited.get(0) ;
 		if ( destination.isHigherThan(currentFloor) ) return Direction.UP ;
 		return Direction.DOWN ;
 		}
@@ -90,29 +86,11 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 
 	//version 1
 	private void stopElevator() {
-	 		// introduce assertion
-	 		assert elevatorMotor != null;
-	 		elevatorMotor.stop() ;
+	 		elevatorMotor.stop();
 	 		setCurrentDirection(Direction.IDLE);
 	}
 
-	// private void doOpenDoor() {
-	// 		// introduce assertion
-	// 		assert elevatorDoor != null;
-	// 		elevatorDoor.open() ;
-	// 		openFloorDoor() ;
-	// 		if ( hasDoorTimer() ) doorTimer.start();
-	// 		}
-
-	// private void openFloorDoor() {
-	// 		// introduce assertion
-	// 		assert floorDoors.get(getCurrentFloor().getFloor()) != null;
-	// 		floorDoors.get(getCurrentFloor().getFloor()).open();
-	// 		}
-
 	private void moveElevator(Direction nextDirection) {
-		// introduce assertion
-		assert elevatorMotor != null;
 		elevatorMotor.move(getCurrentFloor(), nextDirection) ;
 		setCurrentDirection(nextDirection);
 		}
@@ -136,12 +114,12 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 	private boolean needToStop(Floor floor) {
 		boolean needToStop;
 		if ( kind == ElevatorControllerKind.EveryFloorStop ) needToStop = true;
-		else needToStop = getFloorstobeVisited().contains(floor);
+		else needToStop = getFloorsToBeVisited().contains(floor);
 		return needToStop;
 	}
 	
 	private boolean removeDestination(Floor floor) {
-		return floorstobeVisited.remove(floor);
+		return floorsToBeVisited.remove(floor);
 	}
 		
 	public void openDoor() {
@@ -154,11 +132,8 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 			doorController.closeDoor(currentFloor);
 		}
 	}
-	public List<Floor> getFloorstobeVisited() {
-		return floorstobeVisited;
-	}
-	public DoorStatus getDoorStatus(Floor floor) {
-		return doorController.getDoorStatus(floor);
+	public List<Floor> getFloorsToBeVisited() {
+		return floorsToBeVisited;
 	}
 
 	public Floor getCurrentFloor() {
@@ -188,5 +163,9 @@ class ElevatorController implements DisplaySubject, IDoorTimeout {
 		closeDoor();
 		if ( hasNextDestination() )
 			moveElevator(determineMovingDirection());
+	}
+
+	public boolean isOpenedAt(Floor currentFloor) {
+		return doorController.isOpenedAt(currentFloor);
 	}
 }

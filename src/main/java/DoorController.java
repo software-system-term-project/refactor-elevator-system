@@ -23,13 +23,9 @@ public class DoorController {
         floorDoors.get(floor.getValue() - 1).close() ;
         doorTimer.stop() ;
     }
-    public DoorStatus getDoorStatus(Floor floor) {
-        DoorStatus floorDS = floorDoors.get(floor.getValue()).getDoorStatus();
 
-        DoorStatus doorStatus = DoorStatus.OPEN;
-        if ( !elevatorDoor.isOpened() && floorDS == DoorStatus.CLOSED )
-            doorStatus = DoorStatus.CLOSED;
-
-        return doorStatus;
+    public boolean isOpenedAt(Floor floor) {
+        if ( !elevatorDoor.isOpened() && !floorDoors.get(floor.getValue()).isOpened()) return false;
+        return true;
     }
 }
