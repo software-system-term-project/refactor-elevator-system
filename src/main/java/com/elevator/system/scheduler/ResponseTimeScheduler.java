@@ -1,5 +1,6 @@
 package com.elevator.system.scheduler;
 
+import com.elevator.system.controller.ElevatorControllersList;
 import com.elevator.system.util.Direction;
 import com.elevator.system.util.Floor;
 import com.elevator.system.controller.ElevatorController;
@@ -7,7 +8,7 @@ import com.elevator.system.controller.ElevatorController;
 import java.util.List;
 
 public class ResponseTimeScheduler implements ElevatorScheduler {
-    public int selectElevator(List<ElevatorController> controllers, Floor destination, Direction direction) {
-        return controllers.size() - 1;
+    public int selectElevator(ElevatorControllersList controllers, Floor destination, Direction direction) {
+        return controllers.getSize() - 1;
     }
 }
