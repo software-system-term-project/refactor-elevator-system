@@ -9,9 +9,9 @@ import java.util.List;
 
 public class DoorController {
     private ElevatorDoor elevatorDoor;
-    private List<FloorDoor> floorDoors;
+    private FloorDoorList floorDoors;
     private DoorTimer doorTimer;
-    public DoorController(ElevatorDoor elevatorDoor, List<FloorDoor>
+    public DoorController(ElevatorDoor elevatorDoor, FloorDoorList
             floorDoors, DoorTimer doorTimer) {
         this.elevatorDoor = elevatorDoor;
         this.floorDoors = floorDoors;
@@ -22,12 +22,12 @@ public class DoorController {
     }
     public void openDoor(Floor floor) {
         elevatorDoor.open() ;
-        floorDoors.get(floor.getValue() - 1).open() ;
+        floorDoors.get(floor).open() ;
         doorTimer.start() ;
     }
     public void closeDoor(Floor floor) {
         elevatorDoor.close() ;
-        floorDoors.get(floor.getValue() - 1).close() ;
+        floorDoors.get(floor).close() ;
         doorTimer.stop() ;
     }
 

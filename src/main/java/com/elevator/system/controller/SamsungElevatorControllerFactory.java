@@ -1,5 +1,6 @@
 package com.elevator.system.controller;
 
+import com.elevator.system.door.FloorDoorList;
 import com.elevator.system.util.Floor;
 import com.elevator.system.door.DoorTimer;
 import com.elevator.system.door.elevator.ElevatorDoor;
@@ -35,8 +36,8 @@ public class SamsungElevatorControllerFactory extends AbstractElevatorController
     }
 
     @Override
-    List<FloorDoor> createFloorDoors(int floorCount) {
-        List<FloorDoor> floorDoors = new ArrayList<FloorDoor>();
+    FloorDoorList createFloorDoors(int floorCount) {
+        FloorDoorList floorDoors = new FloorDoorList();
         
         for(int i=0;i<floorCount;i++)
         {
