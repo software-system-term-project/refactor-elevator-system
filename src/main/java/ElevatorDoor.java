@@ -1,24 +1,13 @@
 
-public class ElevatorDoor {
+public abstract class ElevatorDoor {
 	
-protected DoorStatus elevatorDoorStatus;
+protected DoorStatus elevatorDoorStatus = DoorStatus.CLOSED;
 
-	public ElevatorDoor() 
-	{
-		elevatorDoorStatus = DoorStatus.CLOSED;
+	public boolean isOpened() {
+		return elevatorDoorStatus == DoorStatus.OPEN;
 	}
 
-	public DoorStatus getDoorStatus() {
-		DoorStatus status = null;
-		status = elevatorDoorStatus.equals(DoorStatus.CLOSED) ? DoorStatus.CLOSED : DoorStatus.OPEN;
-		return status;
-	}
+	abstract public void open();
 
-	public void open() 
-	{
-	}
-
-	public void close() 
-	{
-	}
+	abstract public void close();
 }

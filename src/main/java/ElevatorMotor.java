@@ -1,11 +1,7 @@
 
-public class ElevatorMotor {
+public abstract class ElevatorMotor {
 	private ElevatorController elevatorController ;
-	private MotorStatus motorStatus ;
-
-	public ElevatorMotor() {
-		motorStatus = MotorStatus.STOPPED ;
-	}
+	private MotorStatus motorStatus = MotorStatus.STOPPED;
 
 	public void setElevatorController(ElevatorController elevatorController) {
 		this.elevatorController = elevatorController ;
@@ -21,8 +17,7 @@ public class ElevatorMotor {
 		if (  getMotorStatus() == MotorStatus.MOVING ) return ;
 
 		assert elevatorController != null;
-		DoorStatus doorStatus = elevatorController.getDoorStatus(currentFloor) ;
-		if ( doorStatus == DoorStatus.OPEN ) return;
+		if ( elevatorController.getDoorStatus(currentFloor)  == DoorStatus.OPEN ) return;
 		setMotorStatus(MotorStatus.MOVING) ;
 	}
 

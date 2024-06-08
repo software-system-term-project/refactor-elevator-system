@@ -1,10 +1,6 @@
 
 public class ElevatorDoorSamsung extends ElevatorDoor {
-
-	public ElevatorDoorSamsung() {
-		super();
-	}
-
+	@Override
 	public void open() 
 	{
 		if ( elevatorDoorStatus == DoorStatus.OPEN ) return ;
@@ -12,6 +8,7 @@ public class ElevatorDoorSamsung extends ElevatorDoor {
 		elevatorDoorStatus = DoorStatus.OPEN;
 	}
 
+	@Override
 	public void close() 
 	{
 		if ( elevatorDoorStatus == DoorStatus.CLOSED ) return ;

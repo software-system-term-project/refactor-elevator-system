@@ -24,11 +24,10 @@ public class DoorController {
         doorTimer.stop() ;
     }
     public DoorStatus getDoorStatus(Floor floor) {
-        DoorStatus elevatorDoorState = elevatorDoor.getDoorStatus();
         DoorStatus floorDS = floorDoors.get(floor.getValue()).getDoorStatus();
 
         DoorStatus doorStatus = DoorStatus.OPEN;
-        if ( elevatorDoorState == DoorStatus.CLOSED && floorDS == DoorStatus.CLOSED )
+        if ( !elevatorDoor.isOpened() && floorDS == DoorStatus.CLOSED )
             doorStatus = DoorStatus.CLOSED;
 
         return doorStatus;

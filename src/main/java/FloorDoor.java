@@ -1,27 +1,35 @@
 
 public class FloorDoor {
+	private DeviceVendor vendor;
 	private Floor floor ;
-	protected DoorStatus doorStatus;
-	
 
-	public FloorDoor(Floor floor) {
+	private FloorDoorController floorDoorController;
+
+	public FloorDoor(DeviceVendor vendor, Floor floor) {
+		this.vendor = vendor;
 		this.floor = floor;
-		doorStatus = DoorStatus.CLOSED;
-	}
 
+		switch (vendor) {
+			case SAMSUNG:
+				floorDoorController = new FloorDoorControllerSamsung(vendor, floor);
+				break;
+			case LG:
+				floorDoorController = new FloorDoorControllerLG(vendor, floor);
+				break;
+			case HYUNDAI:
+				floorDoorController = new FloorDoorControllerHyundai(vendor, floor);
+				break;
+		}
+
+	}
 	public void open() {
-		System.out.println(floor + "th Floor Door Open") ;
-		doorStatus = DoorStatus.OPEN;
+		floorDoorController.open();
 	}
 	public void close() {
-		System.out.println(floor + "th Floor Door Close") ;
-		doorStatus = DoorStatus.CLOSED;
+		floorDoorController.close();
 	}
 	public DoorStatus getDoorStatus() {
-		DoorStatus status = null;	
-		status = (doorStatus == DoorStatus.OPEN) ? DoorStatus.OPEN : DoorStatus.CLOSED;
-		return status;
+		return floorDoorController.getDoorStatus();
 	}
-
 	public Floor getFloor() { return floor; }
 }
