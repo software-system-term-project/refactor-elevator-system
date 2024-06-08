@@ -1,11 +1,10 @@
 package com.elevator.system;
 
+import com.elevator.system.button.ButtonsList;
 import com.elevator.system.button.Button;
 import com.elevator.system.button.MoveDownCommand;
 import com.elevator.system.button.MoveUpCommand;
-import com.elevator.system.controller.ElevatorController;
-import com.elevator.system.controller.HyundaiElevatorControllerFactory;
-import com.elevator.system.controller.SamsungElevatorControllerFactory;
+import com.elevator.system.controller.*;
 import com.elevator.system.display.AdvancedFloorDisplay;
 import com.elevator.system.display.ControlRoomDisplay;
 import com.elevator.system.display.ElevatorInsideDisplay;
@@ -26,28 +25,28 @@ public class Main {
 				.getInstance()
 				.createScheduler();
 		
-		List<ElevatorController> elevatorControllers = createElevatorControllers(floorCount);
+		ElevatorControllersList elevatorControllers = createElevatorControllers(floorCount);
 		
 		SimpleElevatorManager simpleElevatorManager = new SimpleElevatorManager(elevatorControllers, scheduler);
 		
-		List<Button> requestButtons = new ArrayList<>();
+		ButtonsList buttons = new ButtonsList();
 		for ( int i = 0; i < floorCount; i ++ ) {
 			Floor floor = new Floor(i + 1);
 
-			requestButtons.add(new Button(new MoveDownCommand(simpleElevatorManager, floor)));
-			requestButtons.add(new Button(new MoveUpCommand(simpleElevatorManager, floor)));
+			buttons.addButton(new Button(new MoveDownCommand(simpleElevatorManager, floor)));
+			buttons.addButton(new Button(new MoveUpCommand(simpleElevatorManager, floor)));
 		}
-		requestButtons.get(0).pressed();
+		buttons.pressButton(0);
 	}
 
-	private static List<ElevatorController> createElevatorControllers(int floorCount) {
-		List<ElevatorController> elevatorControllers = new ArrayList<>();
+	private static ElevatorControllersList createElevatorControllers(int floorCount) {
+		ElevatorControllersList elevatorControllers = new ElevatorControllersList();
 		
 		// Devices for Elevator 1
-		elevatorControllers.add(createFirstElevator(floorCount));
+		elevatorControllers.addController(createFirstElevator(floorCount));
 
 		// Devices for Elevator 2
-		elevatorControllers.add(createSecondElevator(floorCount));
+		elevatorControllers.addController(createSecondElevator(floorCount));
 
 		return elevatorControllers;
 	}
@@ -58,7 +57,9 @@ public class Main {
 				.createElevatorController(floorCount);
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
-		elevatorController.attach(new AdvancedFloorDisplay(elevatorController, imp));
+		DisplayManager displayManager = new DisplayManager();
+		displayManager.attach(new AdvancedFloorDisplay(elevatorController, imp));
+		elevatorController.setDisplayManager(displayManager);
 		return elevatorController;
 	}
 
@@ -67,8 +68,10 @@ public class Main {
 				.getInstance()
 				.createElevatorController(floorCount);
 
-		elevatorController.attach(new ControlRoomDisplay(elevatorController));
-		elevatorController.attach(new ElevatorInsideDisplay(elevatorController));
+		DisplayManager displayManager = new DisplayManager();
+		displayManager.attach(new ControlRoomDisplay(elevatorController));
+		displayManager.attach(new ElevatorInsideDisplay(elevatorController));
+		elevatorController.setDisplayManager(displayManager);
 
 		return elevatorController;
 	}
