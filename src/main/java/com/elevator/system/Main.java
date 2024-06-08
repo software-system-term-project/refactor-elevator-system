@@ -3,6 +3,7 @@ package com.elevator.system;
 import com.elevator.system.button.Button;
 import com.elevator.system.button.MoveDownCommand;
 import com.elevator.system.button.MoveUpCommand;
+import com.elevator.system.controller.DisplayManager;
 import com.elevator.system.controller.ElevatorController;
 import com.elevator.system.controller.HyundaiElevatorControllerFactory;
 import com.elevator.system.controller.SamsungElevatorControllerFactory;
@@ -58,7 +59,9 @@ public class Main {
 				.createElevatorController(floorCount);
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
-		elevatorController.attach(new AdvancedFloorDisplay(elevatorController, imp));
+		DisplayManager displayManager = new DisplayManager();
+		displayManager.attach(new AdvancedFloorDisplay(elevatorController, imp));
+		elevatorController.setDisplayManager(displayManager);
 		return elevatorController;
 	}
 
@@ -67,8 +70,10 @@ public class Main {
 				.getInstance()
 				.createElevatorController(floorCount);
 
-		elevatorController.attach(new ControlRoomDisplay(elevatorController));
-		elevatorController.attach(new ElevatorInsideDisplay(elevatorController));
+		DisplayManager displayManager = new DisplayManager();
+		displayManager.attach(new ControlRoomDisplay(elevatorController));
+		displayManager.attach(new ElevatorInsideDisplay(elevatorController));
+		elevatorController.setDisplayManager(displayManager);
 
 		return elevatorController;
 	}

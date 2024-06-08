@@ -18,8 +18,10 @@ public abstract class AbstractElevatorControllerFactory {
     abstract ElevatorControllerKind setElevatorControllerKind();
 
     public ElevatorController createElevatorController(int floorCount) {
-        return new ElevatorController(setElevatorControllerKind(),
-                createElevatorMotor(), new DoorController(
+        return new ElevatorController(
+                setElevatorControllerKind(),
+                createElevatorMotor(),
+                new DoorController(
                         createElevatorDoor(),
                         createFloorDoors(floorCount),
                         createDoorTimer()

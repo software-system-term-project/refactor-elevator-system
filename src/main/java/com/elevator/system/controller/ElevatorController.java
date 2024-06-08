@@ -1,7 +1,6 @@
 package com.elevator.system.controller;
 
 import com.elevator.system.display.DisplayObserver;
-import com.elevator.system.display.DisplaySubject;
 import com.elevator.system.door.DoorController;
 import com.elevator.system.motor.ElevatorMotor;
 import com.elevator.system.util.Direction;
@@ -10,16 +9,16 @@ import com.elevator.system.util.Floor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElevatorController implements DisplaySubject, IDoorTimeout {
+public class ElevatorController implements IDoorTimeout {
 	private final ElevatorControllerKind kind; // 0: every floor stop, 1: demand only stop
 
 	private final ElevatorMotor elevatorMotor;
-	private final DoorController doorController ;
+	private final DoorController doorController;
 	private List<Floor> floorsToBeVisited = new ArrayList<>();
 	private Floor currentFloor = new Floor(1);
 	private Direction currentDirection = Direction.IDLE;
 
-	private List<DisplayObserver> displayObservers = new ArrayList<>();
+	private DisplayManager displayManager;
 	
 	public ElevatorController(ElevatorControllerKind kind, ElevatorMotor elevatorMotor,
 							  DoorController doorController) {
@@ -30,8 +29,12 @@ public class ElevatorController implements DisplaySubject, IDoorTimeout {
 		this.elevatorMotor = elevatorMotor;
 		this.doorController = doorController;
 	}
+
+	public void setDisplayManager(DisplayManager displayManager) {
+		if (displayManager == null) this.displayManager = displayManager;
+	}
+
 	public void stop() {
-		// elevatorMotor, elevatorDoor, floorDoors should not be null
 		if ( isElevatorMoving() ) {
 			stopElevator();
 		}
@@ -76,22 +79,7 @@ public class ElevatorController implements DisplaySubject, IDoorTimeout {
 			return getCurrentDirection() != Direction.IDLE;
 			}
 
-	@Override
-	public void attach(DisplayObserver observer) {
-		displayObservers.add(observer);
-	}
 
-	@Override
-	public void detach(DisplayObserver observer) {
-		displayObservers.remove(observer);
-	}
-
-	@Override
-	public void notifyObservers() {
-		for (DisplayObserver observer : displayObservers) {
-			observer.update();
-		}
-	}
 
 	//version 1
 	private void stopElevator() {
@@ -156,7 +144,7 @@ public class ElevatorController implements DisplaySubject, IDoorTimeout {
 	public void setCurrentFloor(Floor currentFloor) {
 		this.currentFloor = currentFloor;
 		
-		notifyObservers();
+		displayManager.notifyObservers();
 	}
 	public Direction getCurrentDirection() {
 		return currentDirection;
@@ -164,7 +152,7 @@ public class ElevatorController implements DisplaySubject, IDoorTimeout {
 	public void setCurrentDirection(Direction currentDirection) {
 		this.currentDirection = currentDirection;
 		
-		notifyObservers();
+		displayManager.notifyObservers();
 	}
 
 	@Override

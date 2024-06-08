@@ -1,4 +1,4 @@
-package com.elevator.system.display;
+package com.elevator.system.controller;
 
 import com.elevator.system.display.DisplayObserver;
 
