@@ -1,5 +1,7 @@
 package com.elevator.system.util;
 
+import java.util.Objects;
+
 public class Floor {
     private int value;
     private static final int MIN_FLOOR = -100;
@@ -39,6 +41,19 @@ public class Floor {
 
     public boolean isEqual(Floor other) {
         return value == other.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Floor floor) {
+            return floor.getValue() == this.getValue();
+        }
+        return false;
     }
 
     @Override

@@ -14,9 +14,8 @@ public class ElevatorController implements IDoorTimeout {
 
 	private final ElevatorMotor elevatorMotor;
 	private final DoorController doorController;
-	private List<Floor> floorsToBeVisited = new ArrayList<>();
-	private Floor currentFloor = new Floor(1);
-	private Direction currentDirection = Direction.IDLE;
+	private final FloorList floorsToBeVisited = new FloorList();
+	private final ElevatorStatus elevatorStatus = new ElevatorStatus();
 
 	private DisplayManager displayManager;
 	
@@ -54,12 +53,47 @@ public class ElevatorController implements IDoorTimeout {
 			
 	}
 
-	private boolean isNewDestination(Floor destination) {
-		return ! floorsToBeVisited.contains(destination);
-		}
+	public void approaching(Floor floor) {
+		doApproaching(floor);
 
-	private boolean addDestination(Floor destination) {
-		return floorsToBeVisited.add(destination);
+		if (!needToStop(floor)) return;
+
+		stopElevator();
+		openDoor();
+
+		removeDestination(floor);
+	}
+	public FloorList getFloorsToBeVisited() {
+		return floorsToBeVisited;
+	}
+
+	public Floor getCurrentFloor() {
+		return elevatorStatus.getCurrentFloor();
+	}
+
+	public Direction getCurrentDirection() {
+		return elevatorStatus.getCurrentDirection();
+	}
+
+	public boolean isNewDestination(Floor destination) {
+		return !floorsToBeVisited.contains(destination);
+	}
+
+	@Override
+	public void doorTimeout() {
+		closeDoor();
+		if ( hasNextDestination() )
+			moveElevator(determineMovingDirection());
+	}
+
+	private void setCurrentDirection(Direction currentDirection) {
+		elevatorStatus.setCurrentDirection(currentDirection);
+
+		displayManager.notifyObservers();
+	}
+
+	private void addDestination(Floor destination) {
+		floorsToBeVisited.add(destination);
 		}
 
 	private boolean hasNextDestination() {
@@ -71,15 +105,13 @@ public class ElevatorController implements IDoorTimeout {
 		final boolean noMoreDestinationFloors = floorsToBeVisited.isEmpty();
 		if ( noMoreDestinationFloors ) return Direction.IDLE ;
 		final Floor destination = floorsToBeVisited.get(0) ;
-		if ( destination.isHigherThan(currentFloor) ) return Direction.UP ;
+		if ( destination.isHigherThan(elevatorStatus.getCurrentFloor()) ) return Direction.UP ;
 		return Direction.DOWN ;
-		}
+	}
 
 	private boolean isElevatorMoving() {
 			return getCurrentDirection() != Direction.IDLE;
 			}
-
-
 
 	//version 1
 	private void stopElevator() {
@@ -91,17 +123,6 @@ public class ElevatorController implements IDoorTimeout {
 		elevatorMotor.move(getCurrentFloor(), nextDirection) ;
 		setCurrentDirection(nextDirection);
 		}
-
-	public void approaching(Floor floor) {
-		doApproaching(floor) ;
-
-		if ( ! needToStop(floor) ) return;
-
-		stopElevator();
-		openDoor();
-		
-		removeDestination(floor) ;
-	}
 
 	private void doApproaching(Floor floor) {
 		System.out.println("\nApproaching " + floor + "th floor") ;
@@ -118,51 +139,21 @@ public class ElevatorController implements IDoorTimeout {
 	private boolean removeDestination(Floor floor) {
 		return floorsToBeVisited.remove(floor);
 	}
-		
-	public void openDoor() {
+
+	private void setCurrentFloor(Floor currentFloor) {
+		elevatorStatus.setCurrentFloor(currentFloor);
+
+		displayManager.notifyObservers();
+	}
+
+	private void openDoor() {
 		if ( getCurrentDirection() == Direction.IDLE  ) {
-			doorController.openDoor(currentFloor);
+			doorController.openDoor(elevatorStatus.getCurrentFloor());
 		}
 	}
-	public void closeDoor() {
+	private void closeDoor() {
 		if ( getCurrentDirection() == Direction.IDLE ) {
-			doorController.closeDoor(currentFloor);
+			doorController.closeDoor(elevatorStatus.getCurrentFloor());
 		}
-	}
-	public List<Floor> getFloorsToBeVisited() {
-		return floorsToBeVisited;
-	}
-
-	public Floor getCurrentFloor() {
-		return currentFloor;
-	}
-	public int getCurrentFloorToInt() {
-		return currentFloor.getValue() ;
-	}
-
-
-	public void setCurrentFloor(Floor currentFloor) {
-		this.currentFloor = currentFloor;
-		
-		displayManager.notifyObservers();
-	}
-	public Direction getCurrentDirection() {
-		return currentDirection;
-	}
-	public void setCurrentDirection(Direction currentDirection) {
-		this.currentDirection = currentDirection;
-		
-		displayManager.notifyObservers();
-	}
-
-	@Override
-	public void doorTimeout() {
-		closeDoor();
-		if ( hasNextDestination() )
-			moveElevator(determineMovingDirection());
-	}
-
-	public boolean isOpenedAt(Floor currentFloor) {
-		return doorController.isOpenedAt(currentFloor);
 	}
 }

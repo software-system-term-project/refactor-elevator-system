@@ -45,7 +45,7 @@ public class ElevatorControllersList {
 
     public boolean isToBeVisitedFloor(Floor floor) {
         for ( ElevatorController controller: elevatorControllers) {
-            if ( controller.getFloorsToBeVisited().contains(floor) ) return true;
+            if ( !controller.isNewDestination(floor)) return true;
         }
         return false;
     }
