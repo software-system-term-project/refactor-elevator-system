@@ -18,6 +18,18 @@ public class FloorDoorList {
         return floorDoors.get(index);
     }
 
+    public boolean isOpened(Floor floor) {
+        return get(floor.getValue()).isOpened();
+    }
+
+    public void open(Floor floor) {
+        get(floor.getValue()).open();
+    }
+
+    public void close(Floor floor) {
+        get(floor.getValue()).close();
+    }
+
     public FloorDoor get(Floor floor) {
         int floorIndex = floor.getValue() - 1;
         if (floorIndex < 0 || floorIndex >= floorDoors.size()) throw new IndexOutOfBoundsException("잘못된 접근입니다.");

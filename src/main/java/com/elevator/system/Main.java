@@ -19,7 +19,6 @@ import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
-		
 		int floorCount = 5;
 		ElevatorScheduler scheduler = SchedulerFactory
 				.getInstance()
@@ -30,7 +29,7 @@ public class Main {
 		SimpleElevatorManager simpleElevatorManager = new SimpleElevatorManager(elevatorControllers, scheduler);
 		
 		ButtonsList buttons = new ButtonsList();
-		for ( int i = 0; i < floorCount; i ++ ) {
+		for ( int i = 0; i < floorCount; i ++) {
 			Floor floor = new Floor(i + 1);
 
 			buttons.addButton(new Button(new MoveDownCommand(simpleElevatorManager, floor)));

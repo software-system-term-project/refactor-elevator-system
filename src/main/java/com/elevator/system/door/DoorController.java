@@ -21,18 +21,17 @@ public class DoorController {
         doorTimer.setDoorTimeout(doorTimeout);
     }
     public void openDoor(Floor floor) {
-        elevatorDoor.open() ;
-        floorDoors.get(floor).open() ;
-        doorTimer.start() ;
+        elevatorDoor.open();
+        floorDoors.open(floor);
+        doorTimer.start();
     }
     public void closeDoor(Floor floor) {
         elevatorDoor.close() ;
-        floorDoors.get(floor).close() ;
+        floorDoors.close(floor);
         doorTimer.stop() ;
     }
 
     public boolean isOpenedAt(Floor floor) {
-        if ( !elevatorDoor.isOpened() && !floorDoors.get(floor.getValue()).isOpened()) return false;
-        return true;
+        return elevatorDoor.isOpened() && floorDoors.isOpened(floor);
     }
 }
