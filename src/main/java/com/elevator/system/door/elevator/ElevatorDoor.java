@@ -10,7 +10,7 @@ protected DoorStatus elevatorDoorStatus = DoorStatus.CLOSED;
 		return elevatorDoorStatus == DoorStatus.OPEN;
 	}
 
-	abstract public void open();
+	public abstract void open();
 
-	abstract public void close();
+	public abstract void close();
 }

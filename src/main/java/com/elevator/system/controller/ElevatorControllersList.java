@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ElevatorControllersList {
-    private List<ElevatorController> elevatorControllers = new ArrayList<>();
+    private final List<ElevatorController> elevatorControllers = new ArrayList<>();
 
     public int getSize() {
         return elevatorControllers.size();
@@ -18,7 +18,7 @@ public class ElevatorControllersList {
         elevatorControllers.add(elevatorController);
     }
 
-    public ElevatorController getController(int index) {
+    public ElevatorController get(int index) {
         if (index < 0 || index >= elevatorControllers.size()) throw new IndexOutOfBoundsException("유효하지 않은 컨트롤러 접근입니다.");
         return elevatorControllers.get(index);
     }
@@ -34,7 +34,7 @@ public class ElevatorControllersList {
     }
 
     public void moveElevator(int selectedElevator, Floor destination) {
-        elevatorControllers.get(selectedElevator).goTo(destination) ;
+        get(selectedElevator).goTo(destination) ;
     }
 
     public void print() {

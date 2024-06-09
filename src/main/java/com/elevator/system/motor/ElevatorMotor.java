@@ -24,7 +24,7 @@ public abstract class ElevatorMotor {
 	}
 
 	public void move(Floor currentFloor, Direction direction) {
-		if (  getMotorStatus() == MotorStatus.MOVING ) return ;
+		if (  getMotorStatus() == MotorStatus.MOVING) return ;
 
 		if ( doorController.isOpenedAt(currentFloor) ) return;
 		setMotorStatus(MotorStatus.MOVING) ;

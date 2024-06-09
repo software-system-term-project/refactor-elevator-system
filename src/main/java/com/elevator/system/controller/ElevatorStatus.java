@@ -3,7 +3,7 @@ package com.elevator.system.controller;
 import com.elevator.system.util.Direction;
 import com.elevator.system.util.Floor;
 
-public class ElevatorStatus {
+public class ElevatorStatus implements ElevatorStatusProvider {
     private Floor currentFloor = new Floor(1);
 
     private Direction currentDirection = Direction.IDLE;
