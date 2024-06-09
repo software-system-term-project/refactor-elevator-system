@@ -11,7 +11,7 @@ public class Floor {
         if (isValidFloor(value)) {
             this.value = value;
         } else {
-            throw new IllegalArgumentException("Invalid floor value. Floor must be between -100 and 1000.");
+            throw new IllegalArgumentException("Invalid floor value. Floor must be between " + MIN_FLOOR +" and " + MAX_FLOOR);
         }
     }
 
@@ -23,7 +23,7 @@ public class Floor {
         if (isValidFloor(value)) {
             this.value = value;
         } else {
-            throw new IllegalArgumentException("Invalid floor value. Floor must be between -100 and 1000.");
+            throw new IllegalArgumentException("Invalid floor value. Floor must be between " + MIN_FLOOR +" and " + MAX_FLOOR);
         }
     }
 
