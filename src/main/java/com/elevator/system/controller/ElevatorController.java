@@ -53,6 +53,10 @@ public class ElevatorController implements IDoorTimeout {
 			
 	}
 
+	public ElevatorStatus getElevatorStatus() {
+		return elevatorStatus;
+	}
+
 	public void approaching(Floor floor) {
 		doApproaching(floor);
 

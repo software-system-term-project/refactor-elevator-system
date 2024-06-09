@@ -2,24 +2,25 @@ package com.elevator.system.display;
 
 
 import com.elevator.system.controller.ElevatorController;
+import com.elevator.system.controller.ElevatorStatusProvider;
 import com.elevator.system.display.implementor.IFloorDisplayImplementor;
 import com.elevator.system.util.Direction;
 import com.elevator.system.util.Floor;
 
 public abstract class AbstractFloorDisplay implements DisplayObserver {
-	protected ElevatorController elevatorController;
+	protected ElevatorStatusProvider statusProvider;
 	private IFloorDisplayImplementor floorDisplayImplementor;
 	
-	protected AbstractFloorDisplay(ElevatorController elevatorController,
+	protected AbstractFloorDisplay(ElevatorStatusProvider statusProvider,
 								   IFloorDisplayImplementor floorDisplayModule) {
-		this.elevatorController = elevatorController;
+		this.statusProvider = statusProvider;
 		this.floorDisplayImplementor = floorDisplayModule;
 	}
 
 	@Override
 	public void update() {
-		Floor currentFloor = elevatorController.getCurrentFloor() ;
-		Direction currentDirection = elevatorController.getCurrentDirection();
+		Floor currentFloor = statusProvider.getCurrentFloor() ;
+		Direction currentDirection = statusProvider.getCurrentDirection();
 		showPosition(currentFloor);
 		showDirection(currentDirection);
 	}

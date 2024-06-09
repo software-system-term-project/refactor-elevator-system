@@ -57,7 +57,7 @@ public class Main {
 
 		IFloorDisplayImplementor imp = new SamsungFloorDisplayImplementor();
 		DisplayManager displayManager = new DisplayManager();
-		displayManager.attach(new AdvancedFloorDisplay(elevatorController, imp));
+		displayManager.attach(new AdvancedFloorDisplay(elevatorController.getElevatorStatus(), imp));
 		elevatorController.setDisplayManager(displayManager);
 		return elevatorController;
 	}
@@ -68,8 +68,8 @@ public class Main {
 				.createElevatorController(floorCount);
 
 		DisplayManager displayManager = new DisplayManager();
-		displayManager.attach(new ControlRoomDisplay(elevatorController));
-		displayManager.attach(new ElevatorInsideDisplay(elevatorController));
+		displayManager.attach(new ControlRoomDisplay(elevatorController.getElevatorStatus()));
+		displayManager.attach(new ElevatorInsideDisplay(elevatorController.getElevatorStatus()));
 		elevatorController.setDisplayManager(displayManager);
 
 		return elevatorController;

@@ -1,14 +1,15 @@
 package com.elevator.system.display;
 
+import com.elevator.system.controller.ElevatorStatusProvider;
 import com.elevator.system.util.Direction;
 import com.elevator.system.controller.ElevatorController;
 import com.elevator.system.util.Floor;
 import com.elevator.system.display.implementor.IFloorDisplayImplementor;
 
 public class BasicFloorDisplay extends AbstractFloorDisplay {
-	public BasicFloorDisplay(ElevatorController elevatorController,
+	public BasicFloorDisplay(ElevatorStatusProvider statusProvider,
 							 IFloorDisplayImplementor floorDisplayImplementor) {
-		super(elevatorController, floorDisplayImplementor);
+		super(statusProvider, floorDisplayImplementor);
 	}
 	
 	@Override
