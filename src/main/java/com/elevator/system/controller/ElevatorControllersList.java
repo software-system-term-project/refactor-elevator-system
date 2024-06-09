@@ -55,6 +55,4 @@ public class ElevatorControllersList {
         System.out.println(controller.getCurrentDirection());
         System.out.println(controller.getFloorsToBeVisited());
     }
-
-
 }

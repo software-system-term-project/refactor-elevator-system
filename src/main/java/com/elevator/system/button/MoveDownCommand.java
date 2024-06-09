@@ -5,17 +5,17 @@ import com.elevator.system.util.Floor;
 import com.elevator.system.SimpleElevatorManager;
 
 public class MoveDownCommand implements Command {
-    private SimpleElevatorManager elavatorManager;
+    private SimpleElevatorManager elevatorManager;
 
     private Floor floor;
 
-    public MoveDownCommand(SimpleElevatorManager elavatorManager, Floor floor) {
-        this.elavatorManager = elavatorManager;
+    public MoveDownCommand(SimpleElevatorManager elevatorManager, Floor floor) {
+        this.elevatorManager = elevatorManager;
         this.floor = floor;
     }
 
     @Override
     public void execute() {
-        elavatorManager.requestElevator(floor, Direction.DOWN);
+        elevatorManager.requestElevator(floor, Direction.DOWN);
     }
 }

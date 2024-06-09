@@ -22,7 +22,6 @@ public class SamsungElevatorControllerFactory extends AbstractElevatorController
     public static SamsungElevatorControllerFactory getInstance() {
         if (instance == null) instance = new SamsungElevatorControllerFactory();
         return instance;
-
     }
 
     @Override

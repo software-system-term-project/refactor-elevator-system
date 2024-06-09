@@ -38,7 +38,6 @@ public class ElevatorController implements IDoorTimeout {
 			stopElevator();
 		}
 
-		// open doors
 		openDoor();
 	}
 	public void goTo(Floor destination) {
@@ -50,7 +49,6 @@ public class ElevatorController implements IDoorTimeout {
 		if ( hasNextDestination() ) {
 			moveElevator(determineMovingDirection());
 		}
-			
 	}
 
 	public ElevatorStatus getElevatorStatus() {
@@ -67,6 +65,7 @@ public class ElevatorController implements IDoorTimeout {
 
 		removeDestination(floor);
 	}
+
 	public FloorList getFloorsToBeVisited() {
 		return floorsToBeVisited;
 	}
@@ -98,14 +97,13 @@ public class ElevatorController implements IDoorTimeout {
 
 	private void addDestination(Floor destination) {
 		floorsToBeVisited.add(destination);
-		}
+	}
 
 	private boolean hasNextDestination() {
 		return determineMovingDirection() != Direction.IDLE;
-		}
+	}
 
 	private Direction determineMovingDirection() {
-		// introduce explaining variable
 		final boolean noMoreDestinationFloors = floorsToBeVisited.isEmpty();
 		if ( noMoreDestinationFloors ) return Direction.IDLE ;
 		final Floor destination = floorsToBeVisited.get(0) ;
@@ -114,19 +112,19 @@ public class ElevatorController implements IDoorTimeout {
 	}
 
 	private boolean isElevatorMoving() {
-			return getCurrentDirection() != Direction.IDLE;
-			}
+		return getCurrentDirection() != Direction.IDLE;
+	}
 
-	//version 1
+
 	private void stopElevator() {
-	 		elevatorMotor.stop();
-	 		setCurrentDirection(Direction.IDLE);
+		elevatorMotor.stop();
+		setCurrentDirection(Direction.IDLE);
 	}
 
 	private void moveElevator(Direction nextDirection) {
 		elevatorMotor.move(getCurrentFloor(), nextDirection) ;
 		setCurrentDirection(nextDirection);
-		}
+	}
 
 	private void doApproaching(Floor floor) {
 		System.out.println("\nApproaching " + floor + "th floor") ;
@@ -155,6 +153,7 @@ public class ElevatorController implements IDoorTimeout {
 			doorController.openDoor(elevatorStatus.getCurrentFloor());
 		}
 	}
+
 	private void closeDoor() {
 		if ( getCurrentDirection() == Direction.IDLE ) {
 			doorController.closeDoor(elevatorStatus.getCurrentFloor());

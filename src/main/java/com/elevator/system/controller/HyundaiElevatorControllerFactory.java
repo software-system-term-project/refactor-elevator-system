@@ -24,7 +24,6 @@ public class HyundaiElevatorControllerFactory extends AbstractElevatorController
     public static HyundaiElevatorControllerFactory getInstance() {
         if (instance == null) instance = new HyundaiElevatorControllerFactory();
         return instance;
-
     }
 
     @Override
